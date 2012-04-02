@@ -1,6 +1,6 @@
 <?php
 
-namespace DHolmes\InnovataSTK;
+namespace DHolmes\InnovataSTK\Soap;
 
 use SimpleXMLElement;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;

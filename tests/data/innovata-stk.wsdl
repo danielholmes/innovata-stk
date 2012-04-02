@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://DataTimeTableToolKit.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://DataTimeTableToolKit.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://DataTimeTableToolKit.com/">
+      <s:element name="GetSchedules">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sSchedulesSearchXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSchedulesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSchedulesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WSAuthenticate" type="tns:WSAuthenticate" />
+      <s:complexType name="WSAuthenticate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerRefCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebServicesRefCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SrcIPAddress" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetSchedulesContracted">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sSchedulesSearchXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSchedulesContractedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSchedulesContractedResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStationList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sStationSearchXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStationListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStationListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCountryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sCountrySearchXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCountryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCountryListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCountryDependency">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sdependentCountryListXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCountryDependencyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCountryDependencyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNextDirects">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sNextDirectsXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNextDirectsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNextDirectsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStationsDependency">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sStationsDependency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStationsDependencyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStationsDependencyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNearestAirports">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_sNearestAirports" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNearestAirportsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNearestAirportsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSchedulesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSchedules" />
+  </wsdl:message>
+  <wsdl:message name="GetSchedulesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSchedulesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSchedulesWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetSchedulesContractedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSchedulesContracted" />
+  </wsdl:message>
+  <wsdl:message name="GetSchedulesContractedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSchedulesContractedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSchedulesContractedWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetStationListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStationList" />
+  </wsdl:message>
+  <wsdl:message name="GetStationListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStationListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStationListWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetCountryListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCountryList" />
+  </wsdl:message>
+  <wsdl:message name="GetCountryListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCountryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCountryListWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetCountryDependencySoapIn">
+    <wsdl:part name="parameters" element="tns:GetCountryDependency" />
+  </wsdl:message>
+  <wsdl:message name="GetCountryDependencySoapOut">
+    <wsdl:part name="parameters" element="tns:GetCountryDependencyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCountryDependencyWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetNextDirectsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNextDirects" />
+  </wsdl:message>
+  <wsdl:message name="GetNextDirectsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNextDirectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNextDirectsWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetStationsDependencySoapIn">
+    <wsdl:part name="parameters" element="tns:GetStationsDependency" />
+  </wsdl:message>
+  <wsdl:message name="GetStationsDependencySoapOut">
+    <wsdl:part name="parameters" element="tns:GetStationsDependencyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStationsDependencyWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:message name="GetNearestAirportsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNearestAirports" />
+  </wsdl:message>
+  <wsdl:message name="GetNearestAirportsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNearestAirportsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNearestAirportsWSAuthenticate">
+    <wsdl:part name="WSAuthenticate" element="tns:WSAuthenticate" />
+  </wsdl:message>
+  <wsdl:portType name="DataTimetableToolKitServicesSoap">
+    <wsdl:operation name="GetSchedules">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Based on defined parameters, search would be performed on the schedule data for flights.</wsdl:documentation>
+      <wsdl:input message="tns:GetSchedulesSoapIn" />
+      <wsdl:output message="tns:GetSchedulesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSchedulesContracted">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Based on defined parameters, search would be performed on the schedule data for flights.</wsdl:documentation>
+      <wsdl:input message="tns:GetSchedulesContractedSoapIn" />
+      <wsdl:output message="tns:GetSchedulesContractedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStationList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provides access to the station data within the schedule database; based on input parameters; a variety of searches can be performed to retrieve station data.</wsdl:documentation>
+      <wsdl:input message="tns:GetStationListSoapIn" />
+      <wsdl:output message="tns:GetStationListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Full list of countries represented within the schedule database</wsdl:documentation>
+      <wsdl:input message="tns:GetCountryListSoapIn" />
+      <wsdl:output message="tns:GetCountryListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryDependency">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List of dependent countries represented within the schedule database</wsdl:documentation>
+      <wsdl:input message="tns:GetCountryDependencySoapIn" />
+      <wsdl:output message="tns:GetCountryDependencySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNextDirects">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Based on defined parameters, search +/- X days for available direct flights</wsdl:documentation>
+      <wsdl:input message="tns:GetNextDirectsSoapIn" />
+      <wsdl:output message="tns:GetNextDirectsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStationsDependency">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provides access to the station data within the schedule database; this search provides for searches based on an origin code and provides stations associated with that origin within the schedule data.</wsdl:documentation>
+      <wsdl:input message="tns:GetStationsDependencySoapIn" />
+      <wsdl:output message="tns:GetStationsDependencySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNearestAirports">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Based on defined parameters; perform radius search to find nearby airports</wsdl:documentation>
+      <wsdl:input message="tns:GetNearestAirportsSoapIn" />
+      <wsdl:output message="tns:GetNearestAirportsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataTimetableToolKitServicesSoap" type="tns:DataTimetableToolKitServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSchedules">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetSchedules" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSchedulesWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSchedulesContracted">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetSchedulesContracted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSchedulesContractedWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStationList">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetStationList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetStationListWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryList">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetCountryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCountryListWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryDependency">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetCountryDependency" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCountryDependencyWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNextDirects">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetNextDirects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetNextDirectsWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStationsDependency">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetStationsDependency" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetStationsDependencyWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNearestAirports">
+      <soap:operation soapAction="http://DataTimeTableToolKit.com/GetNearestAirports" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetNearestAirportsWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataTimetableToolKitServicesSoap12" type="tns:DataTimetableToolKitServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSchedules">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetSchedules" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSchedulesWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSchedulesContracted">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetSchedulesContracted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSchedulesContractedWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStationList">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetStationList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetStationListWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryList">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetCountryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCountryListWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryDependency">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetCountryDependency" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCountryDependencyWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNextDirects">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetNextDirects" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetNextDirectsWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStationsDependency">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetStationsDependency" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetStationsDependencyWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNearestAirports">
+      <soap12:operation soapAction="http://DataTimeTableToolKit.com/GetNearestAirports" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetNearestAirportsWSAuthenticate" part="WSAuthenticate" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataTimetableToolKitServices">
+    <wsdl:port name="DataTimetableToolKitServicesSoap" binding="tns:DataTimetableToolKitServicesSoap">
+      <soap:address location="http://stk.innovataw3svc.com/DataTimetableToolKitServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataTimetableToolKitServicesSoap12" binding="tns:DataTimetableToolKitServicesSoap12">
+      <soap12:address location="http://stk.innovataw3svc.com/DataTimetableToolKitServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,11 +1,12 @@
 <?php
 
-namespace DHolmes\InnovataSTK;
+namespace DHolmes\InnovataSTK\Soap;
 
 use stdClass;
 use SimpleXMLElement;
 use DateTime;
-use DHolmes\InnovataSTK\Soap\SoapClient;
+use DHolmes\InnovataSTK\InnovataSTKClient;
+use DHolmes\InnovataSTK\CallException;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
 
 /**
@@ -19,7 +20,7 @@ class SoapInnovataSTKClient implements InnovataSTKClient
     /** @var string */
     private $customerCode;
     /** @var string */
-    private $productCode;
+    private $password;
     /** @var ResponseParser */
     private $responseParser;
     
@@ -27,15 +28,15 @@ class SoapInnovataSTKClient implements InnovataSTKClient
      *
      * @param SoapClient $client
      * @param string $customerCode
-     * @param string $productCode
+     * @param string $password
      * @param ResponseParser $responseParser 
      */
-    public function __construct(SoapClient $client, $customerCode, $productCode, 
-        ResponseParser $responseParser)
+    public function __construct(SoapClient $client, $customerCode, $password, 
+        ResponseParser $responseParser = null)
     {
         $this->client = $client;
         $this->customerCode = $customerCode;
-        $this->productCode = $productCode;
+        $this->password = $password;
         if ($responseParser === null)
         {
             $this->responseParser = new ResponseParser();
@@ -59,29 +60,38 @@ class SoapInnovataSTKClient implements InnovataSTKClient
         // TODO: Figure out how to deal with xml in more structured way        
         $expectedIn = new stdClass();
         $expectedIn->_sSchedulesSearchXML = sprintf('<GetSchedules_Input 
-            customerCode="%s" 
-            productCode="%s" 
-            DD="%s" 
-            MM="%s" 
-            YYYY="%s" 
-            flightNumber="%s" 
-            carCode="%s" 
+            customerCode="%s" productCode="external" 
+            DD="%s" MM="%s" YYYY="%s" flightNumber="%s" carCode="%s" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="GetSchedules_Input.xsd" />', 
-            $this->customerCode, $this->productCode, $date->format('d'), $date->format('m'), 
+            $this->customerCode, $date->format('d'), $date->format('m'), 
             $date->format('Y'), $flightNumber, $carrierCode);
         $result = $this->performCall('GetSchedules', $expectedIn);
+        $xmlResult = $this->parseXmlResult($result, 'GetSchedulesResult');
         
-        if ($result instanceof stdClass && isset($result->GetSchedulesResult))
+        return $this->responseParser->parseFlightResults($xmlResult);
+    }
+    
+    /**
+     *
+     * @param mixed $result
+     * @param string $xmlParamName 
+     * @return SimpleXMLElement
+     */
+    private function parseXmlResult($result, $xmlParamName)
+    {
+        $validXmlResult = null;
+        
+        if ($result instanceof stdClass && isset($result->$xmlParamName))
         {
-            $xmlResult = new SimpleXMLElement($result->GetSchedulesResult);
+            $xmlResult = new SimpleXMLElement($result->$xmlParamName);
             if (isset($xmlResult->error))
             {
                 throw new CallException($xmlResult->error);
             }
             else
             {
-                $flightResults = $this->responseParser->parseFlightResults($xmlResult);
+                $validXmlResult = $xmlResult;
             }
         }
         else
@@ -89,7 +99,7 @@ class SoapInnovataSTKClient implements InnovataSTKClient
             throw new CallException('Invalid Response: ' . var_export($result, true));
         }
         
-        return $flightResults;
+        return $validXmlResult;
     }
     
     /**

@@ -1,10 +1,10 @@
 <?php
 
-namespace DHolmes\InnovataSTK\Tests\ResponseParser;
+namespace DHolmes\InnovataSTK\Tests\ResponseParser\Soap;
 
 use SimpleXMLElement;
 use PHPUnit_Framework_TestCase;
-use DHolmes\InnovataSTK\ResponseParser;
+use DHolmes\InnovataSTK\Soap\ResponseParser;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
 use DHolmes\InnovataSTK\Model\Carrier;
 use DHolmes\InnovataSTK\Model\Equipment;

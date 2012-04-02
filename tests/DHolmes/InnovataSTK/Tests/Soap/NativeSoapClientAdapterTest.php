@@ -13,45 +13,27 @@ use DHolmes\InnovataSTK\Soap\NativeSoapClientAdapter;
  * @author Creatio Pty Ltd
  */
 class NativeSoapClientAdapterTest extends PHPUnit_Framework_TestCase
-{
-    /** @var NativeSoapClient */
-    private $nativeClient;
-    /** @var NativeSoapClientAdapter */
-    private $client;
-    
+{    
     protected function setUp()
     {
-        if (extension_loaded('soap'))
-        {
-            $this->nativeClient = $this->getMockBuilder('SoapClient')
-                                       ->disableOriginalConstructor()
-                                       ->getMock();
-            $this->client = new NativeSoapClientAdapter($this->nativeClient);
-        }
-        else
+        if (!extension_loaded('soap'))
         {
             $this->markTestSkipped('Soap extension required');
         }
     }
     
-    public function testMakeCall_NormalMethod_InvokesSoapClientCorrectly()
+    public function testConstruct_InvalidWSDL_DoesntCauseErrorBecauseLazyInstantiated()
     {
-        $this->nativeClient->expects($this->once())
-                           ->method('__soapCall')
-                           ->with('SomeMethod', array(1, 2, 3));
-        
-        $args = array(1, 2, 3);
-        $this->client->makeCall('SomeMethod', $args);
+        new NativeSoapClientAdapter('/non-existent-wsdl');
     }
     
-    public function testSetHeaders_Valid_SetsSoapClientCorrectly()
+    public function testMakeCall_InvalidWSDL_ThrowsException()
     {
-        $expectedHeader = new NativeSoapHeader('http://url', 'Name', 'Data', true);
+        $this->setExpectedException('RuntimeException', 
+            'Error loading WSDL: /non-existent-wsdl');
         
-        $this->nativeClient->expects($this->once())
-                           ->method('__setSoapHeaders')
-                           ->with(array($expectedHeader));
+        $client = new NativeSoapClientAdapter('/non-existent-wsdl');
         
-        $this->client->setHeaders(array(new SoapHeader('http://url', 'Name', 'Data')));
+        $client->makeCall('Something');
     }
 }

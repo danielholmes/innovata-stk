@@ -13,7 +13,7 @@ interface SoapClient
      * @param array $args
      * @return mixed
      */
-    public function makeCall($name, array $args);
+    public function makeCall($name, array $args = array());
     
     /**
      * @param array $headers

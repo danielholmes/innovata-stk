@@ -2,6 +2,8 @@
 
 namespace DHolmes\InnovataSTK\Soap;
 
+use Exception;
+use RuntimeException;
 use SoapClient as NativeSoapClient;
 use SoapHeader as NativeSoapHeader;
 
@@ -11,16 +13,39 @@ use SoapHeader as NativeSoapHeader;
  */
 class NativeSoapClientAdapter implements SoapClient
 {
+    /** @var string */
+    private $wsdlUrl;
     /** @var NativeSoapClient */
     private $nativeClient;
     
     /**
      *
-     * @param NativeSoapClient $nativeClient 
+     * @param string $wsdlUrl
      */
-    public function __construct(NativeSoapClient $nativeClient)
+    public function __construct($wsdlUrl)
     {
-        $this->nativeClient = $nativeClient;
+        $this->wsdlUrl = $wsdlUrl;
+    }
+    
+    /**
+     *
+     * @return NativeSoapClient 
+     */
+    public function getNativeClient()
+    {
+        if ($this->nativeClient === null)
+        {
+            try
+            {
+                $this->nativeClient = @new NativeSoapClient($this->wsdlUrl);
+            }
+            catch (Exception $e)
+            {
+                $message = sprintf('Error loading WSDL: %s', $this->wsdlUrl);
+                throw new RuntimeException($message, 0, $e);
+            }
+        }
+        return $this->nativeClient;
     }
     
     /**
@@ -28,9 +53,9 @@ class NativeSoapClientAdapter implements SoapClient
      * @param string $name
      * @param array $args 
      */
-    public function makeCall($name, array $args)
+    public function makeCall($name, array $args = array())
     {
-        $this->nativeClient->__soapCall($name, $args);
+        $this->getNativeClient()->__soapCall($name, $args);
     }
     
     /**
@@ -42,6 +67,6 @@ class NativeSoapClientAdapter implements SoapClient
         {
             return new NativeSoapHeader($header->uri, $header->name, $header->data, true);
         }, $headers);
-        $this->nativeClient->__setSoapHeaders($nativeHeaders);
+        $this->getNativeClient()->__setSoapHeaders($nativeHeaders);
     }
 }

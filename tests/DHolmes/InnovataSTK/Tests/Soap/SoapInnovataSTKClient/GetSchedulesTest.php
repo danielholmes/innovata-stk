@@ -1,14 +1,14 @@
 <?php
 
-namespace DHolmes\InnovataSTK\Tests\SoapInnovataSTKClient;
+namespace DHolmes\InnovataSTK\Tests\Soap\SoapInnovataSTKClient;
 
 use DateTime;
 use stdClass;
 use PHPUnit_Framework_TestCase;
-use DHolmes\InnovataSTK\SoapInnovataSTKClient;
+use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\SoapClient;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
-use DHolmes\InnovataSTK\ResponseParser;
+use DHolmes\InnovataSTK\Soap\ResponseParser;
 
 /**
  *
@@ -28,7 +28,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
         $this->soapClient = $this->getMockBuilder('DHolmes\InnovataSTK\Soap\SoapClient')
                                  ->disableOriginalConstructor()
                                  ->getMock();
-        $this->responseParser = $this->getMock('DHolmes\InnovataSTK\ResponseParser');
+        $this->responseParser = $this->getMock('DHolmes\InnovataSTK\Soap\ResponseParser');
         $this->client = new SoapInnovataSTKClient($this->soapClient, 'guest', 'external', 
                             $this->responseParser);
     }
@@ -38,13 +38,8 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
         // TODO: Compare xml semantically rather than through strings
         $expectedIn = new stdClass();
         $expectedIn->_sSchedulesSearchXML = '<GetSchedules_Input 
-            customerCode="guest" 
-            productCode="external" 
-            DD="03" 
-            MM="02" 
-            YYYY="2012" 
-            flightNumber="0010" 
-            carCode="BA" 
+            customerCode="guest" productCode="external" 
+            DD="03" MM="02" YYYY="2012" flightNumber="0010" carCode="BA" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="GetSchedules_Input.xsd" />';
         $result = new stdClass();
@@ -83,12 +78,8 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
         $result = new stdClass();
         $result->GetSchedulesResult = 
             '<flightResults>
-                <flights count="0" />
-                <carriers count="0" />
-                <equipments count="0" />
-                <stations count="0" />
-                <metros count="0" />
-                <countries count="0" />
+                <flights count="0" /><carriers count="0" /><equipments count="0" />
+                <stations count="0" /><metros count="0" /><countries count="0" />
                 <regions count="0" />
                 <error>Please enter the correct login credential.</error>
             </flightResults>';
