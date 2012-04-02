@@ -1,0 +1,9 @@
+{
+    "name": "dholmes/innovata-stk",
+    "version": "0.0.1",
+    "require": {
+    },
+    "autoload": {
+        "psr-0": { "DHolmes\\InnovataSTK": "src/" }
+    }
+}

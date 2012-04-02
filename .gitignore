@@ -1,3 +1,5 @@
-build.user.properties
+/build.user.properties
 /nbproject/private/
 /target/
+/vendor/
+/composer.phar

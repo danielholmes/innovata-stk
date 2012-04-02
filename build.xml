@@ -1,0 +1,48 @@
+<!--
+   Suggested Usage:
+      ant -v clean package
+   
+   The goal of this build is to run tests and create a distributable package of the library
+-->
+<project name="innovata-stk" basedir="." default="package">
+    <target name="-init">
+        <property environment="env" />
+        <property file="${basedir}/build.user.properties" />
+        
+        <!-- Sources -->
+        <property name="src.loc" location="${basedir}/src" />
+        <property name="test.loc" location="${basedir}/tests" />
+
+	<!-- Build -->
+        <property name="dist.loc" location="${basedir}/target" />
+	<property name="report.loc" location="${dist.loc}/report" />
+	<property name="report.phpunit.loc" location="${report.loc}/phpunit" />
+        
+        <!-- Executables -->
+        <property name="tools.phpunit.bin" value="phpunit" />
+    </target>
+    
+    <target name="clean" depends="-init">
+        <delete dir="${dist.loc}" />
+    </target>
+    
+    <target name="-prepare" depends="-init">
+        <mkdir dir="${dist.loc}" />
+        <mkdir dir="${report.loc}" />
+        <mkdir dir="${report.phpunit.loc}" />
+    </target>
+    
+    <target name="test" depends="-prepare">
+        <dirname property="tools.phpunit.parent.dir" file="${tools.phpunit.bin}" />
+        <exec executable="${tools.phpunit.bin}" dir="${tools.phpunit.parent.dir}" failonerror="true">
+            <arg value="-c" />
+            <arg value="${test.loc}" />
+            <arg value="--log-junit=${report.phpunit.loc}/report.xml" />
+            <!-- TODO: Add coverage -->
+        </exec>
+    </target>
+    
+    <target name="package" depends="test">
+        <!-- TODO: Package distributable -->
+    </target>
+</project>
