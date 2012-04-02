@@ -7,6 +7,13 @@ and its description can be found here:
 * http://stk.innovataw3svc.com/DataTimetableToolKitServices.asmx?WSDL
 
 
+Example Usage
+-------------
+```php
+$client = \DHolmes\InnovataSTK\InnovataSTKClientFactory::createClient('customerCode', 'password');
+$flightResults = $client->getSchedules(new \DateTime('+5 days'), 'BA', '0010');
+```
+
 Dependencies
 ------------
 
