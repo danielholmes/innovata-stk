@@ -45,6 +45,14 @@ class SoapInnovataSTKClient implements InnovataSTKClient
         {
             $this->responseParser = $responseParser;
         }
+        
+        $this->client->setHeaders(array(
+            new SoapHeader('http://DataTimeTableToolKit.com/', 'WSAuthenticate', array(
+                'CustomerRefCode' => $customerCode,
+                'Password' => $password,
+                'WebServicesRefCode' => 'TKS'
+            ))
+        ));
     }
     
     /**

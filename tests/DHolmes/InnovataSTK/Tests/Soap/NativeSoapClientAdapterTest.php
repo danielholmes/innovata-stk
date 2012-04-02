@@ -27,6 +27,13 @@ class NativeSoapClientAdapterTest extends PHPUnit_Framework_TestCase
         new NativeSoapClientAdapter('/non-existent-wsdl');
     }
     
+    public function testSetHeaders_InvalidWSDL_DoesntCauseErrorBecauseLazyInstantiated()
+    {
+        $client = new NativeSoapClientAdapter('/non-existent-wsdl');
+        
+        $client->setHeaders(array());
+    }
+    
     public function testMakeCall_InvalidWSDL_ThrowsException()
     {
         $this->setExpectedException('RuntimeException', 

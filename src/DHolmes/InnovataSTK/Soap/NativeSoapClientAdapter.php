@@ -17,6 +17,8 @@ class NativeSoapClientAdapter implements SoapClient
     private $wsdlUrl;
     /** @var NativeSoapClient */
     private $nativeClient;
+    /** @var array */
+    private $headers;
     
     /**
      *
@@ -25,13 +27,14 @@ class NativeSoapClientAdapter implements SoapClient
     public function __construct($wsdlUrl)
     {
         $this->wsdlUrl = $wsdlUrl;
+        $this->headers = array();
     }
     
     /**
      *
      * @return NativeSoapClient 
      */
-    public function getNativeClient()
+    private function getNativeClient()
     {
         if ($this->nativeClient === null)
         {
@@ -44,6 +47,7 @@ class NativeSoapClientAdapter implements SoapClient
                 $message = sprintf('Error loading WSDL: %s', $this->wsdlUrl);
                 throw new RuntimeException($message, 0, $e);
             }
+            $this->tryToApplyHeaders();
         }
         return $this->nativeClient;
     }
@@ -63,10 +67,21 @@ class NativeSoapClientAdapter implements SoapClient
      */
     public function setHeaders(array $headers)
     {
-        $nativeHeaders = array_map(function(SoapHeader $header)
+        $this->headers = array_map(function(SoapHeader $header)
         {
             return new NativeSoapHeader($header->uri, $header->name, $header->data, true);
         }, $headers);
-        $this->getNativeClient()->__setSoapHeaders($nativeHeaders);
+        $this->tryToApplyHeaders();
+    }
+    
+    /**
+     * 
+     */
+    private function tryToApplyHeaders()
+    {
+        if ($this->nativeClient !== null)
+        {
+            $this->nativeClient->__setSoapHeaders($this->headers);
+        }
     }
 }

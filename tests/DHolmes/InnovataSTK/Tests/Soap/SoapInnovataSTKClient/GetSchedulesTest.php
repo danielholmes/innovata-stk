@@ -18,18 +18,16 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
 {
     /** @var SoapClient */
     private $soapClient;
-    /** @var ResponseParser /*
+    /** @var ResponseParser */
     private $responseParser;
     /** @var SoapInnovataSTKClient */
     private $client;
     
     protected function setUp()
     {
-        $this->soapClient = $this->getMockBuilder('DHolmes\InnovataSTK\Soap\SoapClient')
-                                 ->disableOriginalConstructor()
-                                 ->getMock();
+        $this->soapClient = $this->getMock('DHolmes\InnovataSTK\Soap\SoapClient');
         $this->responseParser = $this->getMock('DHolmes\InnovataSTK\Soap\ResponseParser');
-        $this->client = new SoapInnovataSTKClient($this->soapClient, 'guest', 'external', 
+        $this->client = new SoapInnovataSTKClient($this->soapClient, 'customerCode', 'password', 
                             $this->responseParser);
     }
     
@@ -38,7 +36,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
         // TODO: Compare xml semantically rather than through strings
         $expectedIn = new stdClass();
         $expectedIn->_sSchedulesSearchXML = '<GetSchedules_Input 
-            customerCode="guest" productCode="external" 
+            customerCode="customerCode" productCode="external" 
             DD="03" MM="02" YYYY="2012" flightNumber="0010" carCode="BA" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="GetSchedules_Input.xsd" />';
