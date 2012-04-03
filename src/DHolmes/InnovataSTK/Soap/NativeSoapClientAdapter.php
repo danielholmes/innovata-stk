@@ -56,10 +56,11 @@ class NativeSoapClientAdapter implements SoapClient
      *
      * @param string $name
      * @param array $args 
+     * @return mixed
      */
     public function makeCall($name, array $args = array())
     {
-        $this->getNativeClient()->__soapCall($name, $args);
+        return $this->getNativeClient()->__soapCall($name, $args);
     }
     
     /**
