@@ -31,8 +31,8 @@ class Flight
      * @param string $frequency 
      * @param array $legs
      */
-    public function __construct($dayIndicator, array $stops, 
-        $elapsedTime, $flightMiles, $frequency, array $legs)
+    public function __construct($dayIndicator, array $stops, $elapsedTime, $flightMiles, $frequency, 
+        array $legs)
     {
         $this->dayIndicator = $dayIndicator;
         $this->stops = $stops;
