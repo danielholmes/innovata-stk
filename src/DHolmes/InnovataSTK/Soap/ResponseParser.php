@@ -102,9 +102,6 @@ class ResponseParser
         $atts = $flightXml->attributes();
         
         $equipmentCode = (string)$atts['equipment'];
-        $carrierFlight = (string)$atts['carFlight'];
-        $flightComps = explode(' ', $carrierFlight);
-        $carrierCode = $flightComps[0];
         
         // TODO:
         $stops = array();
@@ -118,9 +115,9 @@ class ResponseParser
             }
         }
         
-        return new Flight($carrierFlight, $carriersByCode[$carrierCode], (int)$atts['dayIndicator'], 
-                $stops, (int)$atts['elapsedTime'], (int)$atts['fltMiles'], 
-                (string)$atts['frequency'], $legs);
+        return new Flight((int)$atts['dayIndicator'], $stops, 
+                (int)$atts['elapsedTime'], (int)$atts['fltMiles'], (string)$atts['frequency'], 
+                $legs);
     }
     
     /**

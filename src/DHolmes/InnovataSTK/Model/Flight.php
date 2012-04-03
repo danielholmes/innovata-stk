@@ -8,10 +8,6 @@ namespace DHolmes\InnovataSTK\Model;
  */
 class Flight
 {
-    /** @var string */
-    private $carrierFlight;
-    /** @var Carrier */
-    private $carrier;
     /** @var int */
     private $dayIndicator;
     /** @var array */
@@ -21,15 +17,13 @@ class Flight
     /** @var int */
     private $flightMiles;
     /** @var string */
-	// TODO: Convert to richer data type. e.g. raw MTW**S*
+    // TODO: Convert to richer data type. e.g. raw MTW**S*
     private $frequency;
     /** @var array */
     private $legs;
     
     /**
      *
-     * @param string $carrierFlight
-     * @param Carrier $carrier
      * @param int $dayIndicator
      * @param array $stops
      * @param int $elapsedTime
@@ -37,11 +31,9 @@ class Flight
      * @param string $frequency 
      * @param array $legs
      */
-    public function __construct($carrierFlight, Carrier $carrier, $dayIndicator, array $stops, 
+    public function __construct($dayIndicator, array $stops, 
         $elapsedTime, $flightMiles, $frequency, array $legs)
     {
-        $this->carrierFlight = $carrierFlight;
-        $this->carrier = $carrier;
         $this->dayIndicator = $dayIndicator;
         $this->stops = $stops;
         $this->elapsedTime = $elapsedTime;
@@ -50,9 +42,24 @@ class Flight
         $this->legs = $legs;
     }
 
-    public function getCarrierFlight()
+    /**
+     *
+     * @return string
+     */
+    public function getFlightNumber()
     {
-        return $this->carrierFlight;
+        $all = array_map(function(FlightLeg $leg) { return $leg->getFlightNumber(); }, $this->legs);
+        return join('/', $all);
+    }
+    
+    /**
+     *
+     * @return array
+     */
+    public function getCarriers()
+    {
+        $all = array_map(function(FlightLeg $leg) { return $leg->getCarrier(); }, $this->legs);
+        return array_unique($all);
     }
 
     /**
@@ -62,15 +69,6 @@ class Flight
     public function getLegs()
     {
         return $this->legs;
-    }
-    
-    /**
-     *
-     * @return Carrier
-     */
-    public function getCarrier()
-    {
-        return $this->carrier;
     }
     
     public function getDayIndicator()

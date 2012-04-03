@@ -15,7 +15,7 @@ class FlightLeg
     /** @var Carrier */
     private $carrier;
     /** @var string */
-    private $flightNumber;
+    private $flightNumberNumeric;
     /** @var string */
     private $serviceType;
     /** @var int */
@@ -40,25 +40,34 @@ class FlightLeg
      * @param int $stops
      * @param string $cs
      * @param Carrier $carrier
-     * @param string $flightNumber
+     * @param string $flightNumberNumeric
      * @param string $serviceType
      * @param int $dayIndicator
      * @param Equipment $equipment
      * @param Departure $departure
      * @param Arrival $arrival 
      */
-    public function __construct($stops, $cs, Carrier $carrier, $flightNumber, $serviceType, 
+    public function __construct($stops, $cs, Carrier $carrier, $flightNumberNumeric, $serviceType, 
         $dayIndicator, Equipment $equipment, Departure $departure, Arrival $arrival)
     {
         $this->stops = $stops;
         $this->cs = $cs;
         $this->carrier = $carrier;
-        $this->flightNumber = $flightNumber;
+        $this->flightNumberNumeric = $flightNumberNumeric;
         $this->serviceType = $serviceType;
         $this->dayIndicator = $dayIndicator;
         $this->equipment = $equipment;
         $this->departure = $departure;
         $this->arrival = $arrival;
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function getFlightNumber()
+    {
+        return $this->carrier->getCode() . $this->getFlightNumberNumeric();
     }
 
     /**
@@ -84,9 +93,9 @@ class FlightLeg
         return $this->carrier;
     }
 
-    public function getFlightNumber()
+    public function getFlightNumberNumeric()
     {
-        return $this->flightNumber;
+        return $this->flightNumberNumeric;
     }
 
     public function getServiceType()

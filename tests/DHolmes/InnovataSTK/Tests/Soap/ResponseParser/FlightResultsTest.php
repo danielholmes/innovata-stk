@@ -53,7 +53,7 @@ class FlightResultsTest extends PHPUnit_Framework_TestCase
             new FlightLeg(0, 'N', $baCarrier, '0010', 'J', 0, $equipment, $departure, $arrival)
         );
         
-        $flight = new Flight('BA 0010', $baCarrier, 0, $stops, 725, 5957, 'MTWTFSS', $legs);
+        $flight = new Flight(0, $stops, 725, 5957, 'MTWTFSS', $legs);
         $expectedResult = new FlightResults(array($flight));
         $this->assertEquals($expectedResult, $result);
     }
