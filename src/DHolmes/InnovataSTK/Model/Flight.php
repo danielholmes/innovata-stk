@@ -21,6 +21,7 @@ class Flight
     /** @var int */
     private $flightMiles;
     /** @var string */
+	// TODO: Convert to richer data type. e.g. raw MTW**S*
     private $frequency;
     /** @var array */
     private $legs;

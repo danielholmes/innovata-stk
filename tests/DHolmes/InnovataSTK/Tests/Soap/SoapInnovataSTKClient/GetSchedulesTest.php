@@ -47,7 +47,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
                          ->with('GetSchedules', array($expectedIn))
                          ->will($this->returnValue($result));
         
-        $this->client->getSchedules(new DateTime('2012-02-03'), '0010', 'BA');
+        $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
     }
     
     /**
@@ -65,7 +65,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
                          ->with($this->anything(), $this->anything())
                          ->will($this->returnValue($response));
         
-        $this->client->getSchedules(new DateTime('2012-02-03'), '0010', 'BA');
+        $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
     }
     
     public function testGetSchedules_ReturnsErrorNode_ThrowsExceptionWithMessage()
@@ -86,7 +86,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
                          ->with($this->anything(), $this->anything())
                          ->will($this->returnValue($result));
         
-        $this->client->getSchedules(new DateTime('2012-02-03'), '0010', 'BA');
+        $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
     }
     
     public function testGetSchedules_Success_ParsesCorrectly()
@@ -103,7 +103,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
                              ->with($this->anything())
                              ->will($this->returnValue($parsedResult));
         
-        $result = $this->client->getSchedules(new DateTime('2012-02-03'), '0010', 'BA');
+        $result = $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
         
         $this->assertSame($parsedResult, $result);
     }

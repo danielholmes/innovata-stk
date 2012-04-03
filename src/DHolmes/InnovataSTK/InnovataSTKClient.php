@@ -12,11 +12,11 @@ interface InnovataSTKClient
 {
     /**
      * @param DateTime $date
-     * @param string $flightNumber
      * @param string $carrierCode
+     * @param string $flightNumber
      * @return FlightResults
      */
-    public function getSchedules(DateTime $date, $flightNumber, $carrierCode);
+    public function getSchedules(DateTime $date, $carrierCode, $flightNumber);
     
     
     /*1 => 'GetSchedulesContractedResponse GetSchedulesContracted(GetSchedulesContracted $parameters)',
