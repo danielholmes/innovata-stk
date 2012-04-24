@@ -8,10 +8,6 @@ use DHolmes\InnovataSTK\InnovataSTKClientFactory;
 use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\NativeSoapClientAdapter;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class InnovataSTKClientFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function testCreateNativePhpSoapClient_Normal_ReturnsCorrectClient()

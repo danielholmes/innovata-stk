@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class Equipment
 {
     /** @var string */
@@ -20,7 +16,6 @@ class Equipment
     private $isWidebody;
     
     /**
-     *
      * @param string $code
      * @param string $class
      * @param string $description
@@ -36,46 +31,31 @@ class Equipment
         $this->isWidebody = $isWidebody;
     }
     
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getCode()
     {
         return $this->code;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getClass()
     {
         return $this->class;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getAircraftType()
     {
         return $this->aircraftType;
     }
 
-    /**
-     *
-     * @return boolean
-     */
+    /** @return boolean */
     public function getIsWidebody()
     {
         return $this->isWidebody;

@@ -16,10 +16,6 @@ use DHolmes\InnovataSTK\Model\FlightLeg;
 use DHolmes\InnovataSTK\Model\Departure;
 use DHolmes\InnovataSTK\Model\Arrival;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class ResponseParser
 {
     /**

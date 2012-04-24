@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class FlightLeg
 {
     /** @var int */
@@ -61,19 +57,13 @@ class FlightLeg
         $this->arrival = $arrival;
     }
     
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getFlightNumber()
     {
         return $this->carrier->getCode() . $this->getFlightNumberNumeric();
     }
 
-    /**
-     *
-     * @return int
-     */
+    /** @return int */
     public function getStops()
     {
         return $this->stops;
@@ -84,10 +74,7 @@ class FlightLeg
         return $this->cs;
     }
 
-    /**
-     *
-     * @return Carrier
-     */
+    /** @return Carrier */
     public function getCarrier()
     {
         return $this->carrier;
@@ -103,37 +90,25 @@ class FlightLeg
         return $this->serviceType;
     }
 
-    /**
-     *
-     * @return int
-     */
+    /** @return int */
     public function getDayIndicator()
     {
         return $this->dayIndicator;
     }
 
-    /**
-     *
-     * @return Equipment
-     */
+    /** @return Equipment */
     public function getEquipment()
     {
         return $this->equipment;
     }
 
-    /**
-     *
-     * @return Departure
-     */
+    /** @return Departure */
     public function getDeparture()
     {
         return $this->departure;
     }
 
-    /**
-     *
-     * @return Arrival
-     */
+    /** @return Arrival */
     public function getArrival()
     {
         return $this->arrival;

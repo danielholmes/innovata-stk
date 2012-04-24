@@ -4,10 +4,6 @@ namespace DHolmes\InnovataSTK;
 
 use DateTime;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 interface InnovataSTKClient
 {
     /**

@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class Carrier
 {
     /** @var string */
@@ -16,7 +12,6 @@ class Carrier
     private $url;
     
     /**
-     *
      * @param string $code
      * @param string $name
      * @param string $url 
@@ -28,28 +23,19 @@ class Carrier
         $this->url = $url;
     }
     
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getCode()
     {
         return $this->code;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getUrl()
     {
         return $this->url;

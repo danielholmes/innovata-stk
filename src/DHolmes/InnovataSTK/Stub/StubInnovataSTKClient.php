@@ -6,27 +6,17 @@ use DateTime;
 use DHolmes\InnovataSTK\InnovataSTKClient;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class StubInnovataSTKClient implements InnovataSTKClient
 {
     /** @var array */
     private $fixedResponsesByCallName;
     
-    /**
-     *
-     */
     public function __construct()
     {
         $this->fixedResponsesByCallName = array();
     }
     
-    /**
-     *
-     * @param array $fixedResponsesByCallName 
-     */
+    /** @param array $fixedResponsesByCallName */
     public function setFixedResponsesByCallName(array $fixedResponsesByCallName)
     {
         $this->fixedResponsesByCallName = $fixedResponsesByCallName;
@@ -44,7 +34,6 @@ class StubInnovataSTKClient implements InnovataSTKClient
     }
     
     /**
-     *
      * @param string $name
      * @param array $args
      * @return mixed

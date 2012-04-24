@@ -18,10 +18,6 @@ use DHolmes\InnovataSTK\Model\Country;
 use DHolmes\InnovataSTK\Model\Arrival;
 use DHolmes\InnovataSTK\Model\Departure;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class FlightResultsTest extends PHPUnit_Framework_TestCase
 {    
     public function testParseFlightResults_ValidXml_ReturnsCorrect()

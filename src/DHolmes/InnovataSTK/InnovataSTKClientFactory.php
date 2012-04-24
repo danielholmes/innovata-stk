@@ -7,14 +7,9 @@ use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\ServiceDetails;
 use DHolmes\InnovataSTK\Stub\StubInnovataSTKClient;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class InnovataSTKClientFactory
 {
     /**
-     *
      * @param string $customerCode
      * @param string $password
      * @return InnovataSTKClient 
@@ -26,19 +21,19 @@ class InnovataSTKClientFactory
     }
     
     /**
-     *
      * @param string $customerCode
      * @param string $password
+     * @param array $clientOptions
      * @return InnovataSTKClient 
      */
-    public function createNativePhpSoapClient($customerCode, $password)
+    public function createNativePhpSoapClient($customerCode, $password, 
+        array $clientOptions = array())
     {
-        $adapter = new NativeSoapClientAdapter(ServiceDetails::WSDL_URL);
+        $adapter = new NativeSoapClientAdapter(ServiceDetails::WSDL_URL, $clientOptions);
         return new SoapInnovataSTKClient($adapter, $customerCode, $password);
     }
     
     /**
-     *
      * @param array $fixedResponsesByCallName
      * @return InnovataSTKClient 
      */

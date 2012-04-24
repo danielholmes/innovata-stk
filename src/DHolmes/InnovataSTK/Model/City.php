@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class City
 {
     /** @var string */
@@ -20,7 +16,6 @@ class City
     private $longitude;
     
     /**
-     *
      * @param string $code
      * @param string $name
      * @param Country $country
@@ -36,46 +31,31 @@ class City
         $this->longitude = $longitude;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getCode()
     {
         return $this->code;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     *
-     * @return Country
-     */
+    /** @return Country */
     public function getCountry()
     {
         return $this->country;
     }
 
-    /**
-     *
-     * @return double
-     */
+    /** @return double */
     public function getLatitude()
     {
         return $this->latitude;
     }
 
-    /**
-     *
-     * @return double
-     */
+    /** @return double */
     public function getLongitude()
     {
         return $this->longitude;

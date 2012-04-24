@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class Country
 {
     /** @var string */
@@ -16,7 +12,6 @@ class Country
     private $region;
     
     /**
-     *
      * @param string $code
      * @param string $name
      * @param Region $region 
@@ -28,28 +23,19 @@ class Country
         $this->region = $region;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getCode()
     {
         return $this->code;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     *
-     * @return Region
-     */
+    /** @return Region */
     public function getRegion()
     {
         return $this->region;

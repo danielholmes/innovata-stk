@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class Station
 {
     /** @var string */
@@ -18,7 +14,6 @@ class Station
     private $metro;
     
     /**
-     *
      * @param string $code
      * @param string $name
      * @param City $city
@@ -32,33 +27,25 @@ class Station
         $this->metro = $metro;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function getCode()
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @return City
-     */
+    /** @return City */
     public function getCity()
     {
         return $this->city;
     }
 
-    /**
-     * @return Metro
-     */
+    /** @return Metro */
     public function getMetro()
     {
         return $this->metro;

@@ -7,10 +7,6 @@ use SoapClient;
 use DHolmes\InnovataSTK\InnovataSTKClientFactory;
 use DHolmes\InnovataSTK\Soap\ServiceDetails;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class ServiceDetailsTest extends PHPUnit_Framework_TestCase
 {
     public function testWsdl_InitialiseService_IntegratesCorrectly()

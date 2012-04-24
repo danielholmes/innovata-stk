@@ -10,10 +10,6 @@ use DHolmes\InnovataSTK\Model\Equipment;
 use DHolmes\InnovataSTK\Model\Arrival;
 use DHolmes\InnovataSTK\Model\Departure;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class FlightTest extends PHPUnit_Framework_TestCase
 {
     public function testGetFlightNumber_OneLeg_ReturnsLegNumber()

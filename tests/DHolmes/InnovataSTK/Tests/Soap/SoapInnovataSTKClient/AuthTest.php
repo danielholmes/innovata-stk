@@ -7,10 +7,6 @@ use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\SoapClient;
 use DHolmes\InnovataSTK\Soap\SoapHeader;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class AuthTest extends PHPUnit_Framework_TestCase
 {
     public function testConstruct_NormalParams_SetsCorrectSoapHeaders()

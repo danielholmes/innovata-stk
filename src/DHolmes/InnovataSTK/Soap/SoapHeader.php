@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Soap;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class SoapHeader
 {
     /** @var string */
@@ -16,7 +12,6 @@ class SoapHeader
     public $data;
     
     /**
-     *
      * @param string $uri
      * @param string $name
      * @param mixed $data 

@@ -8,10 +8,6 @@ use SoapClient as NativeSoapClient;
 use DHolmes\InnovataSTK\Soap\SoapHeader;
 use DHolmes\InnovataSTK\Soap\NativeSoapClientAdapter;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class NativeSoapClientAdapterTest extends PHPUnit_Framework_TestCase
 {    
     protected function setUp()

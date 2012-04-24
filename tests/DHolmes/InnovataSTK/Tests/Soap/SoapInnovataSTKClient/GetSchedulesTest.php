@@ -10,10 +10,6 @@ use DHolmes\InnovataSTK\Soap\SoapClient;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
 use DHolmes\InnovataSTK\Soap\ResponseParser;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class GetSchedulesTest extends PHPUnit_Framework_TestCase
 {
     /** @var SoapClient */

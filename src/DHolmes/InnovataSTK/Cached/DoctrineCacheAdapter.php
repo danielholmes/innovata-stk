@@ -4,7 +4,6 @@ namespace DHolmes\InnovataSTK\Cached;
 
 use Doctrine\Common\Cache\Cache as DoctrineCache;
 
-/** @author Creatio Pty Ltd */
 class DoctrineCacheAdapter implements Cache
 {
     /** @var DoctrineCache */

@@ -8,7 +8,6 @@ use DHolmes\InnovataSTK\Stub\StubInnovataSTKClient;
 use DHolmes\InnovataSTK\Cached\ArrayCache;
 use DHolmes\InnovataSTK\Cached\CachedClient;
 
-/** @author Creatio Pty Ltd */
 class CachedClientTest extends PHPUnit_Framework_TestCase
 {
     public function testGetSchedules_Normal_ReturnsLiveResult()
