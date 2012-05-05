@@ -106,6 +106,12 @@ class ResponseParser
                             $carriersByCode);
             }
         }
+		
+		// TODO: Operation dates
+		/*<opDates effective="N" discontinue="Y">
+			<effective mm="01" dd="01" yyyy="1901" />
+			<discontinue mm="06" dd="06" yyyy="2012" />
+		</opDates>*/
         
         return new Flight((int)$atts['dayIndicator'], $stops, 
                 (int)$atts['elapsedTime'], (int)$atts['fltMiles'], (string)$atts['frequency'], 
@@ -126,6 +132,7 @@ class ResponseParser
         
         $departureStationCode = (string)$legXml->dpt->attributes()->aptCode;
         $arrivalStationCode = (string)$legXml->arv->attributes()->aptCode;
+		// NOTE: Times are minutes since midnight
         $departure = new Departure($stationsByCode[$departureStationCode], (int)$atts['dptTime'],
                         (string)$legXml->dpt->attributes()->terminal);
         $arrival = new Arrival($stationsByCode[$arrivalStationCode], (int)$atts['arvTime'],
@@ -134,6 +141,10 @@ class ResponseParser
         $carrierCode = (string)$atts['carCode'];
         $equipmentCode = (string)$atts['equipCode'];        
         
+		/*dayIndicator:
+            An indicator that tells if you flight arrives on a
+            different day: -1=previous day, +1 = arrives next day, +2 arrives second day, etc.*/
+		
         return new FlightLeg((int)$atts['stops'], (string)$atts['cs'], $carriersByCode[$carrierCode], 
                 (string)$atts['flightNumber'], (string)$atts['serviceType'], 
                 (int)$atts['dayIndicator'], $equipmentsByCode[$equipmentCode], $departure, 

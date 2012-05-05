@@ -2,13 +2,9 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class Flight
 {
-    /** @var int */
+    /** @var string */
     private $dayIndicator;
     /** @var array */
     private $stops;
@@ -23,8 +19,7 @@ class Flight
     private $legs;
     
     /**
-     *
-     * @param int $dayIndicator
+     * @param string $dayIndicator
      * @param array $stops
      * @param int $elapsedTime
      * @param int $flightMiles
@@ -41,55 +36,70 @@ class Flight
         $this->frequency = $frequency;
         $this->legs = $legs;
     }
+    
+    /** @return Departure */
+    public function getDeparture()
+    {
+        $departure = null;
+        if (count($this->legs) > 0)
+        {
+            $firstLeg = $this->legs[0];
+            $departure = $firstLeg->getDeparture();
+        }
+        return $departure;
+    }
+    
+    /** @return Arrival */
+    public function getArrival()
+    {
+        $arrival = null;
+        if (count($this->legs) > 0)
+        {
+            $lastLeg = $this->legs[count($this->legs) - 1];
+            $arrival = $lastLeg->getArrival();
+        }
+        return $arrival;
+    }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getFlightNumber()
     {
         $all = array_map(function(FlightLeg $leg) { return $leg->getFlightNumber(); }, $this->legs);
         return join('/', $all);
     }
     
-    /**
-     *
-     * @return array
-     */
+    /** @return array */
     public function getCarriers()
     {
         $all = array_map(function(FlightLeg $leg) { return $leg->getCarrier(); }, $this->legs);
         return array_unique($all);
     }
 
-    /**
-     *
-     * @return array
-     */
+    /** @return array */
     public function getLegs()
     {
         return $this->legs;
     }
     
+    /** @return string */
     public function getDayIndicator()
     {
         return $this->dayIndicator;
     }
 
-    /**
-     *
-     * @return array
-     */
+    /** @return array */
     public function getStops()
     {
         return $this->stops;
     }
 
+    /** @return int */
     public function getElapsedTime()
     {
         return $this->elapsedTime;
     }
 
+    /** @return int */
     public function getFlightMiles()
     {
         return $this->flightMiles;
