@@ -45,9 +45,9 @@ class FlightResultsTest extends PHPUnit_Framework_TestCase
         $equipment = new Equipment('744', '747', 'Boeing 747-400 Passenger', 'Jet-engined aircraft', 
                         true);
         $stops = array();
-		$departureDate = DateTime::createFromFormat('U', strtotime('2011-02-04 00:20:00'));
+        $departureDate = DateTime::createFromFormat('U', strtotime('2011-02-04 00:20:00'));
         $departure = new Departure($bangkokStation, $departureDate, '');
-		$arrivalDate = DateTime::createFromFormat('U', strtotime('2011-02-05 06:25:00'));
+        $arrivalDate = DateTime::createFromFormat('U', strtotime('2011-02-05 06:25:00'));
         $arrival = new Arrival($heathrowStation, $arrivalDate, '3');
         $legs = array(
             new FlightLeg(0, 'N', $baCarrier, '0010', 'J', $equipment, $departure, $arrival)

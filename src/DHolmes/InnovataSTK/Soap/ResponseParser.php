@@ -138,33 +138,33 @@ class ResponseParser
         $departureStationCode = (string)$legXml->dpt->attributes()->aptCode;
         $arrivalStationCode = (string)$legXml->arv->attributes()->aptCode;
         
-		/* TODO:
+        /* TODO:
        <equipmentChange>0</equipmentChange>
         <distance>0</distance>
        <restrictionCode />
        <operatedByCarrierCode />
      * <stopCodes>N/A</stopCodes>
      */
-		
+        
         $baseTime = strtotime($date->format('Y-m-d'));
         $departTime = $baseTime + ((int)$atts['dptTime'] * 60);
         $departDateTime = DateTime::createFromFormat('U', $departTime);
         $departure = new Departure($stationsByCode[$departureStationCode], $departDateTime,
                         (string)$legXml->dpt->attributes()->terminal);
-		
-		$arrivalTime = $baseTime + ((int)$atts['arvTime'] * 60);
-		$arrivalDateTime = DateTime::createFromFormat('U', $arrivalTime);
-		$dayIndicator = (string)$atts['dayIndicator'];
-		if (strpos($dayIndicator, '+') === 0)
-		{
-			$days = substr($dayIndicator, 1);
-			$arrivalDateTime->add(new DateInterval('P' . $days . 'D'));
-		}
-		else if (strpos($dayIndicator, '-') === 0)
-		{
-			$days = substr($dayIndicator, 1);
-			$arrivalDateTime->sub(new DateInterval('P' . $days . 'D'));
-		}		
+        
+        $arrivalTime = $baseTime + ((int)$atts['arvTime'] * 60);
+        $arrivalDateTime = DateTime::createFromFormat('U', $arrivalTime);
+        $dayIndicator = (string)$atts['dayIndicator'];
+        if (strpos($dayIndicator, '+') === 0)
+        {
+            $days = substr($dayIndicator, 1);
+            $arrivalDateTime->add(new DateInterval('P' . $days . 'D'));
+        }
+        else if (strpos($dayIndicator, '-') === 0)
+        {
+            $days = substr($dayIndicator, 1);
+            $arrivalDateTime->sub(new DateInterval('P' . $days . 'D'));
+        }        
         $arrival = new Arrival($stationsByCode[$arrivalStationCode], $arrivalDateTime,
                         (string)$legXml->arv->attributes()->terminal);
         
@@ -173,7 +173,7 @@ class ResponseParser
         
         return new FlightLeg((int)$atts['stops'], (string)$atts['cs'], $carriersByCode[$carrierCode], 
                 (string)$atts['flightNumber'], (string)$atts['serviceType'],
-				$equipmentsByCode[$equipmentCode], $departure, $arrival);
+                $equipmentsByCode[$equipmentCode], $departure, $arrival);
     }
     
     /**

@@ -7,14 +7,9 @@ use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\ServiceDetails;
 use DHolmes\InnovataSTK\Stub\StubInnovataSTKClient;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class InnovataSTKClientFactory
 {
     /**
-     *
      * @param string $customerCode
      * @param string $password
      * @return InnovataSTKClient 
@@ -26,7 +21,6 @@ class InnovataSTKClientFactory
     }
     
     /**
-     *
      * @param string $customerCode
      * @param string $password
      * @return InnovataSTKClient 
@@ -38,7 +32,6 @@ class InnovataSTKClientFactory
     }
     
     /**
-     *
      * @param array $fixedResponsesByCallName
      * @return InnovataSTKClient 
      */

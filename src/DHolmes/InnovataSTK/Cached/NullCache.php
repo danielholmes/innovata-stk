@@ -2,7 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Cached;
 
-/** @author Creatio Pty Ltd */
 class NullCache implements Cache
 {
     /**
