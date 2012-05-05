@@ -2,10 +2,6 @@
 
 namespace DHolmes\InnovataSTK\Soap;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 interface SoapClient
 {
     /**
@@ -15,8 +11,6 @@ interface SoapClient
      */
     public function makeCall($name, array $args = array());
     
-    /**
-     * @param array $headers
-     */
+    /** @param array $headers */
     public function setHeaders(array $headers);
 }

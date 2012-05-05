@@ -2,54 +2,40 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class Departure
 {
     /** @var Station */
     private $station;
     /** @var int */
-    private $time;
+    private $minutesSinceMidnight;
     /** @var string */
     private $terminal;
     
     /**
-     *
      * @param Station $station
-     * @param int $time
+     * @param int $minutesSinceMidnight
      * @param string $terminal 
      */
-    public function __construct(Station $station, $time, $terminal)
+    public function __construct(Station $station, $minutesSinceMidnight, $terminal)
     {
-        $this->time = $time;
+        $this->minutesSinceMidnight = $minutesSinceMidnight;
         $this->station = $station;
         $this->terminal = $terminal;
     }
 
-    /**
-     *
-     * @return Station
-     */
+    /** @return Station */
     public function getStation()
     {
         return $this->station;
     }
 
-    /**
-     *
-     * @return int
-     */
-    public function getTime()
+    /** @return int */
+    public function getMinutesSinceMidnight()
     {
-        return $this->time;
+        return $this->minutesSinceMidnight;
     }
 
-    /**
-     *
-     * @return string
-     */
+    /** @return string */
     public function getTerminal()
     {
         return $this->terminal;

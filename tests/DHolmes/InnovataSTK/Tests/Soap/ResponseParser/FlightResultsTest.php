@@ -2,6 +2,8 @@
 
 namespace DHolmes\InnovataSTK\Tests\ResponseParser\Soap;
 
+use DateTime;
+use DateTimeZone;
 use SimpleXMLElement;
 use PHPUnit_Framework_TestCase;
 use DHolmes\InnovataSTK\Soap\ResponseParser;
@@ -25,7 +27,7 @@ class FlightResultsTest extends PHPUnit_Framework_TestCase
         $parser = new ResponseParser();
         
         $xml = new SimpleXMLElement(self::VALID_XML);
-        $result = $parser->parseFlightResults($xml);
+        $result = $parser->parseFlightResults($xml, new DateTime('2011-02-04'));
         
         $baCarrier = new Carrier('BA', 'British Airways', 'www.ba.com');
         $europeRegion = new Region('EUR', 'Europe');
@@ -43,10 +45,12 @@ class FlightResultsTest extends PHPUnit_Framework_TestCase
         $equipment = new Equipment('744', '747', 'Boeing 747-400 Passenger', 'Jet-engined aircraft', 
                         true);
         $stops = array();
-        $departure = new Departure($bangkokStation, 20, '');
-        $arrival = new Arrival($heathrowStation, 385, '3');
+		$departureDate = DateTime::createFromFormat('U', strtotime('2011-02-04 00:20:00'));
+        $departure = new Departure($bangkokStation, $departureDate, '');
+		$arrivalDate = DateTime::createFromFormat('U', strtotime('2011-02-05 06:25:00'));
+        $arrival = new Arrival($heathrowStation, $arrivalDate, '3');
         $legs = array(
-            new FlightLeg(0, 'N', $baCarrier, '0010', 'J', 0, $equipment, $departure, $arrival)
+            new FlightLeg(0, 'N', $baCarrier, '0010', 'J', $equipment, $departure, $arrival)
         );
         
         $flight = new Flight(0, $stops, 725, 5957, 'MTWTFSS', $legs);
@@ -69,7 +73,7 @@ class FlightResultsTest extends PHPUnit_Framework_TestCase
                     </opDates>
                     <legs count="1">
                         <leg number="1" dptTime="20" arvTime="385" stops="0" cs="N" carCode="BA" 
-                             flightNumber="0010" serviceType="J" dayIndicator="0" equipCode="744">
+                             flightNumber="0010" serviceType="J" dayIndicator="+1" equipCode="744">
                             <restrictionCode />
                             <operatedByCarrierCode />
                             <dpt aptCode="BKK" terminal="" cityCode="BKK" country="" region=""/>

@@ -7,10 +7,6 @@ use RuntimeException;
 use SoapClient as NativeSoapClient;
 use SoapHeader as NativeSoapHeader;
 
-/**
- *
- * @author Creatio Pty Ltd
- */
 class NativeSoapClientAdapter implements SoapClient
 {
     /** @var string */
@@ -20,20 +16,14 @@ class NativeSoapClientAdapter implements SoapClient
     /** @var array */
     private $headers;
     
-    /**
-     *
-     * @param string $wsdlUrl
-     */
+    /** @param string $wsdlUrl */
     public function __construct($wsdlUrl)
     {
         $this->wsdlUrl = $wsdlUrl;
         $this->headers = array();
     }
     
-    /**
-     *
-     * @return NativeSoapClient 
-     */
+    /** @return NativeSoapClient  */
     private function getNativeClient()
     {
         if ($this->nativeClient === null)
@@ -53,7 +43,6 @@ class NativeSoapClientAdapter implements SoapClient
     }
     
     /**
-     *
      * @param string $name
      * @param array $args 
      * @return mixed
@@ -63,9 +52,7 @@ class NativeSoapClientAdapter implements SoapClient
         return $this->getNativeClient()->__soapCall($name, $args);
     }
     
-    /**
-     * @param array $headers
-     */
+    /** @param array $headers */
     public function setHeaders(array $headers)
     {
         $this->headers = array_map(function(SoapHeader $header)
@@ -75,9 +62,6 @@ class NativeSoapClientAdapter implements SoapClient
         $this->tryToApplyHeaders();
     }
     
-    /**
-     * 
-     */
     private function tryToApplyHeaders()
     {
         if ($this->nativeClient !== null)

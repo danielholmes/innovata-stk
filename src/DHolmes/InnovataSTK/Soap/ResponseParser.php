@@ -2,6 +2,8 @@
 
 namespace DHolmes\InnovataSTK\Soap;
 
+use DateTime;
+use DateInterval;
 use SimpleXMLElement;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
 use DHolmes\InnovataSTK\Model\Carrier;
@@ -20,9 +22,10 @@ class ResponseParser
 {
     /**
      * @param SimpleXMLElement $xml
+     * @param DateTime $date
      * @return FlightResults 
      */
-    public function parseFlightResults(SimpleXMLElement $xml)
+    public function parseFlightResults(SimpleXMLElement $xml, DateTime $date)
     {
         $carriersByCode = array();
         foreach ($xml->xpath('carriers/carrier') as $carrierXml)
@@ -76,22 +79,23 @@ class ResponseParser
         $flights = array();
         foreach ($xml->xpath('flights/flight') as $flightXml)
         {
-            $flights[] = $this->parseFlight($flightXml, $stationsByCode, $equipmentsByCode,
-                            $carriersByCode);
+            $flights[] = $this->parseFlight($date, $flightXml, $stationsByCode, 
+                            $equipmentsByCode, $carriersByCode);
         }
         
         return new FlightResults($flights);
     }
     
     /**
+     * @param DateTime $date
      * @param SimpleXMLElement $flightXml
      * @param array $stationsByCode
      * @param array $equipmentsByCode 
      * @param array $carriersByCode
      * @return Equipment
      */
-    private function parseFlight(SimpleXMLElement $flightXml, array $stationsByCode, 
-        array $equipmentsByCode, array $carriersByCode)
+    private function parseFlight(DateTime $date, SimpleXMLElement $flightXml, 
+        array $stationsByCode, array $equipmentsByCode, array $carriersByCode)
     {
         $atts = $flightXml->attributes();
         
@@ -102,16 +106,16 @@ class ResponseParser
         {
             foreach ($flightXml->legs->leg as $legXml)
             {
-                $legs[] = $this->parseFlightLeg($legXml, $stationsByCode, $equipmentsByCode,
-                            $carriersByCode);
+                $legs[] = $this->parseFlightLeg($date, $legXml, $stationsByCode, 
+                            $equipmentsByCode, $carriersByCode);
             }
         }
-		
-		// TODO: Operation dates
-		/*<opDates effective="N" discontinue="Y">
-			<effective mm="01" dd="01" yyyy="1901" />
-			<discontinue mm="06" dd="06" yyyy="2012" />
-		</opDates>*/
+        
+        // TODO: Operation dates
+        /*<opDates effective="N" discontinue="Y">
+            <effective mm="01" dd="01" yyyy="1901" />
+            <discontinue mm="06" dd="06" yyyy="2012" />
+        </opDates>*/
         
         return new Flight((int)$atts['dayIndicator'], $stops, 
                 (int)$atts['elapsedTime'], (int)$atts['fltMiles'], (string)$atts['frequency'], 
@@ -119,36 +123,57 @@ class ResponseParser
     }
     
     /**
+     * @param DateTime $date
      * @param SimpleXMLElement $legXml
      * @param array $stationsByCode
      * @param array $equipmentsByCode 
      * @param array $carriersByCode
      * @return FlightLeg 
      */
-    private function parseFlightLeg(SimpleXMLElement $legXml, array $stationsByCode, 
+    private function parseFlightLeg(DateTime $date, SimpleXMLElement $legXml, array $stationsByCode, 
         array $equipmentsByCode, array $carriersByCode)
     {
         $atts = $legXml->attributes();
         
         $departureStationCode = (string)$legXml->dpt->attributes()->aptCode;
         $arrivalStationCode = (string)$legXml->arv->attributes()->aptCode;
-		// NOTE: Times are minutes since midnight
-        $departure = new Departure($stationsByCode[$departureStationCode], (int)$atts['dptTime'],
+        
+		/* TODO:
+       <equipmentChange>0</equipmentChange>
+        <distance>0</distance>
+       <restrictionCode />
+       <operatedByCarrierCode />
+     * <stopCodes>N/A</stopCodes>
+     */
+		
+        $baseTime = strtotime($date->format('Y-m-d'));
+        $departTime = $baseTime + ((int)$atts['dptTime'] * 60);
+        $departDateTime = DateTime::createFromFormat('U', $departTime);
+        $departure = new Departure($stationsByCode[$departureStationCode], $departDateTime,
                         (string)$legXml->dpt->attributes()->terminal);
-        $arrival = new Arrival($stationsByCode[$arrivalStationCode], (int)$atts['arvTime'],
+		
+		$arrivalTime = $baseTime + ((int)$atts['arvTime'] * 60);
+		$arrivalDateTime = DateTime::createFromFormat('U', $arrivalTime);
+		$dayIndicator = (string)$atts['dayIndicator'];
+		if (strpos($dayIndicator, '+') === 0)
+		{
+			$days = substr($dayIndicator, 1);
+			$arrivalDateTime->add(new DateInterval('P' . $days . 'D'));
+		}
+		else if (strpos($dayIndicator, '-') === 0)
+		{
+			$days = substr($dayIndicator, 1);
+			$arrivalDateTime->sub(new DateInterval('P' . $days . 'D'));
+		}		
+        $arrival = new Arrival($stationsByCode[$arrivalStationCode], $arrivalDateTime,
                         (string)$legXml->arv->attributes()->terminal);
         
         $carrierCode = (string)$atts['carCode'];
-        $equipmentCode = (string)$atts['equipCode'];        
+        $equipmentCode = (string)$atts['equipCode'];
         
-		/*dayIndicator:
-            An indicator that tells if you flight arrives on a
-            different day: -1=previous day, +1 = arrives next day, +2 arrives second day, etc.*/
-		
         return new FlightLeg((int)$atts['stops'], (string)$atts['cs'], $carriersByCode[$carrierCode], 
-                (string)$atts['flightNumber'], (string)$atts['serviceType'], 
-                (int)$atts['dayIndicator'], $equipmentsByCode[$equipmentCode], $departure, 
-                $arrival);
+                (string)$atts['flightNumber'], (string)$atts['serviceType'],
+				$equipmentsByCode[$equipmentCode], $departure, $arrival);
     }
     
     /**
