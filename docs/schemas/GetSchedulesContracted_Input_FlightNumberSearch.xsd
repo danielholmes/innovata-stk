@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="GetSchedulesContracted_Input">
+  
+
+        <xs:annotation>
+            <xs:documentation>GetSchedulesContracted</xs:documentation>
+            <xs:documentation xml:lang="en">
+ 					This method returns flights matching input criteria.
+            </xs:documentation>
+
+            <xs:documentation xml:lang="en">
+        MM DD YYYY:
+        The above three fields must be passed as follows:
+        MM  two character field indicating the month (i.e. 01, 02, 11, 12, etc.)
+        DD  two character field indicating the month (i.e. 01, 02, 23, 30, etc.)
+        YYYY four character field indicating the year(i.e. 2009)
+            </xs:documentation>
+
+            <xs:documentation xml:lang="en">
+        productCode:
+        Mandatory value to pass that should have been provided to you in seperate documentation
+            </xs:documentation>
+
+            <xs:documentation xml:lang="en">
+        customerCode:
+        Mandatory value to pass that should have been provided to you in seperate documentation
+            </xs:documentation>
+
+      
+
+            <xs:documentation xml:lang="en">
+        carCode:
+        Carrier code for which to search flights.
+            </xs:documentation>
+
+            <xs:documentation xml:lang="en">
+        flightNumber:
+        Flight number for which to search flights.
+            </xs:documentation>
+
+        </xs:annotation>
+  
+  
+
+        <xs:complexType>
+            <xs:attribute name="DD" use="required" type="xs:string"/>
+            <xs:attribute name="MM" use="required" type="xs:string"/>
+            <xs:attribute name="YYYY" use="required" type="xs:string"/>
+            <xs:attribute name="productCode" use="required" type="xs:string"/>
+            <xs:attribute name="customerCode" use="required" type="xs:string"/>
+            <xs:attribute name="flightNumber" use="required" type="xs:string"/>
+            <xs:attribute name="carCode" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

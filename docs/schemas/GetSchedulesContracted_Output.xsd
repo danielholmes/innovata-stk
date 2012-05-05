@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    			<xs:annotation>
+			   <xs:documentation xml:lang="en">
+           flightResults overview: 
+           Returns a list of flights, and the decode information (airport, city, country, region, carriers, and eqiuipment)
+           for the codes that appear in the flight data.
+           The items that require explantion are annotated below
+         </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            SummaryInfo:  
+            To and From summary station information
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            arvStation: 
+            Three character IATA station code
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            arvTerm: 
+            Terminal indicator at the arrival point (if availailable)
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            arvTime: 
+            The local arrival time at the destination in number of minutes from midnight: i.e. 180 = 0300 hours
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            carFlight: 
+            This expresses the overall carrier and flight numbers for the flight.
+            i.e. AA 101 (direct flight)
+            AA 101 / BA 200 (connecting flight)
+            *AA 109 (direct flight operated by another carrier (see the Leg operatedBy attribute)
+          </xs:documentation>
+
+
+          <xs:documentation xml:lang="en">
+            dayIndicator:
+            An indicator that tells if you flight arrives on a
+            different day: -1=previous day, +1 = arrives next day, +2 arrives second day, etc.
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            elapsedTime: 
+            Overal time of the journey including connection stopover and intermediate stop ground times.
+          </xs:documentation>
+          
+          <xs:documentation xml:lang="en">
+            equipment: 
+            Equipment code for the class of plane for this flight
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            flightId: 
+            This is an internal referrence value for Innovata use
+          </xs:documentation>
+
+          <xs:documentation xml:lang="en">
+            stops: 
+            Number of intermediate stops (where the flight number does not change) for this flight
+            Example: a direct flight from Boston to Denver may stop in Chicago to take on fuel
+          </xs:documentation>
+
+
+        </xs:annotation>
+
+
+  <xs:element name="flightResults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="summaryInfo"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="flights"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="carriers"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="equipments"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="stations"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="cities"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="metros"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="countries"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded" ref="regions"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded" ref="contractRates"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded" ref="error"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="summaryInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" ref="from"/>
+        <xs:element minOccurs="1" maxOccurs="1" ref="to"/>
+      </xs:sequence>
+    </xs:complexType >
+  </xs:element>
+  <xs:element name="from">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="stations"/>
+      </xs:sequence>
+      <xs:attribute name="cityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cityName" use="optional" type="xs:string"/>
+      <xs:attribute name="metCode" use="optional" type="xs:string"/>
+      <xs:attribute name="metName" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryName" use="optional" type="xs:string"/>
+      <xs:attribute name="regCode" use="optional" type="xs:string"/>
+      <xs:attribute name="regName" use="optional" type="xs:string"/>
+      <xs:attribute name="gmtOffSet" use="optional" type="xs:string"/>
+    </xs:complexType >
+  </xs:element >
+  <xs:element name="to">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="stations"/>
+      </xs:sequence>
+      <xs:attribute name="cityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cityName" use="optional" type="xs:string"/>
+      <xs:attribute name="metCode" use="optional" type="xs:string"/>
+      <xs:attribute name="metName" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryName" use="optional" type="xs:string"/>
+      <xs:attribute name="regCode" use="optional" type="xs:string"/>
+      <xs:attribute name="regName" use="optional" type="xs:string"/>
+      <xs:attribute name="gmtOffSet" use="optional" type="xs:string"/>
+    </xs:complexType >
+  </xs:element >
+  <xs:element name="flights">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="flight"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="flight">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1"  ref="dpt"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="arv"/>
+        <xs:element  minOccurs="0" maxOccurs="2" ref="viaCodes"/>
+        <xs:element  minOccurs="0" maxOccurs="1" ref="opDates"/>
+        <xs:element  minOccurs="0" maxOccurs="3" ref="legs"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded" ref="stops"/>
+      </xs:sequence>
+      <xs:attribute name="arvStation" use="required" type="xs:string"/>
+      <xs:attribute name="arvTerm" use="required"/>
+      <xs:attribute name="carFlight" use="required"/>
+      <xs:attribute name="dayIndicator" use="required" type="xs:integer"/>
+      <xs:attribute name="dptStation" use="required" type="xs:string"/>
+      <xs:attribute name="dptTerm" use="required"/>
+      <xs:attribute name="elapsedTime" use="required" type="xs:integer"/>
+      <xs:attribute name="equipment" use="required"/>
+      <xs:attribute name="fltMiles" use="required"/>
+      <xs:attribute name="hasContractRate" use="required" type="xs:string"/>
+      <xs:attribute name="frequency" use="required"/>
+      <xs:attribute name="stops" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element  name="viaCodes"  type="xs:string"/>
+  <xs:element  name="opDates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="effective"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="discontinue"/>
+      </xs:sequence>
+      <xs:attribute name="discontinue" use="required" type="xs:string"/>
+      <xs:attribute name="effective" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="effective">
+    <xs:complexType>
+      <xs:attribute name="dd" use="required" type="xs:integer"/>
+      <xs:attribute name="mm" use="required" type="xs:integer"/>
+      <xs:attribute name="yyyy" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="discontinue">
+    <xs:complexType>
+      <xs:attribute name="dd" use="required" type="xs:integer"/>
+      <xs:attribute name="mm" use="required" type="xs:integer"/>
+      <xs:attribute name="yyyy" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="legs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="leg"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="leg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element  minOccurs="0" maxOccurs="unbounded"  ref="restrictionCode"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded"  ref="operatedByCarrierCode"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded"  ref="dpt"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded"  ref="arv"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="stopCodes"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="equipmentChange"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="distance"/>
+      </xs:sequence>
+      <xs:attribute name="arvTime" use="required" type="xs:integer"/>
+      <xs:attribute name="carCode" use="required" type="xs:string"/>
+      <xs:attribute name="cs" use="required" type="xs:string"/>
+      <xs:attribute name="dayIndicator" use="required" type="xs:integer"/>
+      <xs:attribute name="dptTime" use="required" type="xs:integer"/>
+      <xs:attribute name="equipCode" use="required" type="xs:string"/>
+      <xs:attribute name="flightNumber" use="required" type="xs:integer"/>
+      <xs:attribute name="number" use="required" type="xs:integer"/>
+      <xs:attribute name="serviceType" use="required" type="xs:string"/>
+      <xs:attribute name="stops" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="restrictionCode">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="operatedByCarrierCode">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="stopCodes" type="xs:string"/>
+  <xs:element name="equipmentChange" type="xs:integer"/>
+  <xs:element name="distance" type="xs:integer"/>
+  <xs:element name="stops">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="carriers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="carrier"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="carrier">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="url" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="equipments">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="equipment"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="equipment">
+    <xs:complexType>
+      <xs:attribute name="Widebody" use="required" type="xs:string"/>
+      <xs:attribute name="acftType" use="required"/>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="class" use="optional" type="xs:string"/>
+      <xs:attribute name="desc" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contractRates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="rate"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rate">
+    <xs:complexType>
+      <xs:attribute name="dptSta" use="required" type="xs:string"/>
+      <xs:attribute name="arvSta" use="required"/>
+      <xs:attribute name="carCode" use="required" type="xs:string"/>
+      <xs:attribute name="carName" use="optional" type="xs:string"/>
+      <xs:attribute name="xcaRate" use="optional" type="xs:string"/>
+      <xs:attribute name="ycaRate" use="required"/>
+      <xs:attribute name="bcaRate" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="stations">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="station"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="optional" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="station">
+    <xs:complexType>
+      <xs:attribute name="cityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="code" use="optional" type="xs:string" />
+      <xs:attribute name="metroCityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="name" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="city"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="city">
+    <xs:complexType>
+      <xs:attribute name="Code" use="required" type="xs:string"/>
+      <xs:attribute name="cntryCode" use="optional" type="xs:string"/>
+      <xs:attribute name="lat" use="required" type="xs:decimal"/>
+      <xs:attribute name="lon" use="required" type="xs:decimal"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metros">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="metro"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metro">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="countries">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="country"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="country">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="regioncode" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="regions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="region"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="region">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="regioncode" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="error" type="xs:string" nillable="0" />
+  <xs:element name="dpt">
+    <xs:complexType>
+      <xs:attribute name="aptCode" use="required" type="xs:string"/>
+      <xs:attribute name="cityCode" use="required"/>
+      <xs:attribute name="country"/>
+      <xs:attribute name="metroCityCode"/>
+      <xs:attribute name="region"/>
+      <xs:attribute name="terminal" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="arv">
+    <xs:complexType>
+      <xs:attribute name="aptCode" use="required" type="xs:string"/>
+      <xs:attribute name="cityCode" use="required"/>
+      <xs:attribute name="country"/>
+      <xs:attribute name="metroCityCode"/>
+      <xs:attribute name="region"/>
+      <xs:attribute name="terminal" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

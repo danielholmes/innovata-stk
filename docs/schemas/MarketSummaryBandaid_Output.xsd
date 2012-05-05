@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="summaryInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" ref="from"/>
+        <xs:element minOccurs="1" maxOccurs="1" ref="to"/>
+      </xs:sequence>
+    </xs:complexType >
+  </xs:element>
+  <xs:element name="from">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="stations"/>
+      </xs:sequence>
+      <xs:attribute name="cityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cityName" use="optional" type="xs:string"/>
+      <xs:attribute name="metCode" use="optional" type="xs:string"/>
+      <xs:attribute name="metName" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryName" use="optional" type="xs:string"/>
+      <xs:attribute name="regCode" use="optional" type="xs:string"/>
+      <xs:attribute name="regName" use="optional" type="xs:string"/>
+      <xs:attribute name="gmtOffSet" use="optional" type="xs:string"/>
+    </xs:complexType >
+  </xs:element >
+  <xs:element name="to">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="stations"/>
+      </xs:sequence>
+      <xs:attribute name="cityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cityName" use="optional" type="xs:string"/>
+      <xs:attribute name="metCode" use="optional" type="xs:string"/>
+      <xs:attribute name="metName" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryCode" use="optional" type="xs:string"/>
+      <xs:attribute name="cntryName" use="optional" type="xs:string"/>
+      <xs:attribute name="regCode" use="optional" type="xs:string"/>
+      <xs:attribute name="regName" use="optional" type="xs:string"/>
+      <xs:attribute name="gmtOffSet" use="optional" type="xs:string"/>
+    </xs:complexType >
+  </xs:element >
+  <xs:element name="stations">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded"  ref="station"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="optional" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="station">
+    <xs:complexType>
+      <xs:attribute name="cityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="code" use="optional" type="xs:string" />
+      <xs:attribute name="metroCityCode" use="optional" type="xs:string"/>
+      <xs:attribute name="name" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

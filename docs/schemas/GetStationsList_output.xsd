@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="stationList">
+  <xs:annotation>
+			          
+			   <xs:documentation xml:lang="en">
+           stationList overview: 
+           Decode information for the stations for the requested flight data
+           The lat / long info for the city is expressed in decimal
+         </xs:documentation>
+
+        <xs:documentation xml:lang="en">
+          stations: 
+          Decode information for the station codes contained in the flights and legs, including the cityCode
+          The lat / long info is expressed in decimal
+          If a state / province code exist for a given station code, it is returned
+        </xs:documentation>
+
+        <xs:documentation xml:lang="en">
+          cities: 
+          Decode information for the city codes contained in the flights, legs, and station info, including the cntryCode
+          The lat / long info for the city is expressed in decimal
+        </xs:documentation>
+
+        <xs:documentation xml:lang="en">
+        countries: 
+          Decode information for the country codes in the city information
+        </xs:documentation>
+
+        <xs:documentation xml:lang="en">
+        metros: 
+         Decode information for the metro codes contained in the flights, legs, and city info
+         These are IATA defined metropolitan areas
+         The lat / long info for the city is expressed in decimal
+        </xs:documentation>
+        
+         
+        <xs:documentation xml:lang="en">
+            regions: 
+            Decode information for the region codes in the country info.
+        </xs:documentation>
+        
+
+      </xs:annotation>
+  
+  
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="stations"/>
+        <xs:element ref="cities"/>
+        <xs:element ref="metros"/>
+        <xs:element ref="countries"/>
+        <xs:element ref="regions"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded" ref="error"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="stations">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="station"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="station">
+    <xs:complexType>
+      <xs:attribute name="cityCode" use="required" type="xs:string"/>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="metroCityCode" use="optional"/>
+      <xs:attribute name="stateProvCode" use="optional"/>
+      <xs:attribute name="cntryCode" use="optional"/>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="city"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="city">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="region" use="optional" type="xs:string"/>
+      <xs:attribute name="timezone" use="optional" type="xs:string"/>
+      <xs:attribute name="countryCode" use="optional" type="xs:string"/>
+      <xs:attribute name="isMetro" use="optional" type="xs:string"/>
+      <xs:attribute name="lat" use="required" type="xs:decimal"/>
+      <xs:attribute name="lon" use="required" type="xs:decimal"/>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="countries">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="country"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="country">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="regioncode" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="regions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="region"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="region">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"  type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metros">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="metro"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metro">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="error" type="xs:string" nillable="0" />
+</xs:schema>

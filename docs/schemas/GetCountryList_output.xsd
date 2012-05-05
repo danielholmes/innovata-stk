@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        GetCountryList overview:
+        Returns a list of countries and decoded information (name, region) that appear in the flight data
+      </xs:documentation>
+      <xs:documentation xml:lang="en">
+        country: 
+        Decode information for the country codes in the flight data
+      </xs:documentation>
+      <xs:documentation xml:lang="en">
+        regions: 
+        Decode information for the region codes in the country info.
+      </xs:documentation>
+    </xs:annotation>
+
+  <xs:element name="countryList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="countries"/>
+        <xs:element ref="regions"/>
+        <xs:element  minOccurs="0" maxOccurs="unbounded" ref="error"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="countries">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs ="0" ref="country"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="country">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="regioncode" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="regions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="region"/>
+      </xs:sequence>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="region">
+    <xs:complexType>
+      <xs:attribute name="code" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="error" type="xs:string" nillable="0" />
+</xs:schema>

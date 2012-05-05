@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xs:annotation>       
+			   <xs:documentation xml:lang="en">
+           getNearestAirports_Input overview:
+  				  Given a depart and arrival point (city/station/metro) and a date, this routine will search airports within a radius that has flights.
+         </xs:documentation>
+         
+         
+        <xs:documentation xml:lang="en">
+             code codeType: 
+             These values are used to specify your desired departure point
+             code is a valid IATA airport, city, region, country or metro code: LHR (airport code)  CHI (city code) NYC (metro or city code)
+             codeType specifies which type of code that you are passing: STA = station/airport  CTY = city  MET  metro
+           </xs:documentation>
+
+        
+           <xs:documentation xml:lang="en">
+             customerCode: 
+             Mandatory value to pass that should have been provided to you in seperate documentation
+           </xs:documentation>
+         
+      <xs:documentation xml:lang="en">
+        arvCode arvCodeType: 
+        These values are used to specify your desired arrival point
+        arvCode is a valid IATA airport, city, or metro code: LHR (airport code)  CHI (city code) NYC (metro or city code)
+        arvCodeType specifies which type of code that you are passing: STA = station/airport  CTY = city  MET  metro
+      </xs:documentation>
+
+      <xs:documentation xml:lang="en">
+        arvRadius: 
+        Valid between 1 to 200  miles; default is 60 miles;
+      </xs:documentation>
+
+         
+      <xs:documentation xml:lang="en">
+        dptCode dptCodeType:
+        These values are used to specify your desired departure point
+        dptCode is a valid IATA airport, city, or metro code: LHR (airport code)  CHI (city code) NYC (metro or city code)
+        dptCodeType specifies which typ of code that you are passing: STA = station/airport  CTY = city  MET  metro
+      </xs:documentation>
+
+      <xs:documentation xml:lang="en">
+        dptRadius: 
+        Valid between 1 to 200  miles; default is 60 miles;
+      </xs:documentation>
+         
+      <xs:documentation xml:lang="en">
+        MM DD YYYY:
+        The above three fields must be passed as follows:
+        MM  two character field indicating the month (i.e. 01, 02, 11, 12, etc.)
+        DD  two character field indicating the month (i.e. 01, 02, 23, 30, etc.)
+        YYYY four character field indicating the year(i.e. 2009)
+      </xs:documentation>
+         
+         
+  </xs:annotation>                
+  
+  <xs:element name="getNearestAirports_Input">
+    <xs:complexType>
+      <xs:attribute name="productCode" use="required" type="xs:string"/>
+      <xs:attribute name="customerCode" use="required" type="xs:string"/>
+      <xs:attribute name="arvCode" use="required" type="xs:string"/>
+      <xs:attribute name="arvCodeType" use="required" type="CodeType"/>
+      <xs:attribute name="arvRadius" use="optional" type="RestrictRadius" default="60"/>      
+      <xs:attribute name="dptCode" use="required" type="xs:string"/>
+      <xs:attribute name="dptCodeType" use="required" type="CodeType"/>
+      <xs:attribute name="dptRadius" use="optional" type="RestrictRadius" default="60"/>
+	  <xs:attribute name="MM" type="xs:string" use="required"/>
+	  <xs:attribute name="DD" type="xs:string" use="required"/>
+	  <xs:attribute name="YYYY" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="CodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MET"/>
+			<xs:enumeration value="STA"/>
+			<xs:enumeration value="CTY"/>
+		</xs:restriction>
+	</xs:simpleType>
+<xs:simpleType name='RestrictRadius'>
+  <xs:restriction base='xs:integer'>
+    <xs:minInclusive  value='1'/>
+    <xs:maxInclusive  value='200'/>
+  </xs:restriction>
+</xs:simpleType>
+</xs:schema>

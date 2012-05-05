@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:annotation>
+      <xs:documentation xml:lang="en">
+      GetNextDirects overview: 
+ 			Returns dates for the next available direct flights from the specified location to the arrival point for the specified search range.
+      </xs:documentation>
+</xs:annotation>
+
+  <xs:element name="NextDirects">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="FltsDates"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FltsDates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="FltDate"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FltDate">
+    <xs:complexType>
+      <xs:attribute name="count" use="required" type="xs:integer"/>
+      <xs:attribute name="dd" use="optional" type="xs:string"/>
+      <xs:attribute name="mm" use="optional" type="xs:string"/>
+      <xs:attribute name="yyyy" use="optional" type="xs:string"/>
+      <xs:attribute name="yyyy-mm-dd" use="optional" type="xs:date"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

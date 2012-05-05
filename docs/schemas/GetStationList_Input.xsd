@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="stationListSearch">
+	 <xs:annotation>       
+			   <xs:documentation xml:lang="en">
+           stationListSearch overview:
+           Given a station / city / metro / country/ region code this method will return
+           a list of stations that fly into this station or a list of stations that
+           this station flies into.
+         </xs:documentation>
+
+        <xs:documentation xml:lang="en">
+             code codeType: 
+             These values are used to specify your desired departure point
+             code is a valid IATA airport, city, region, country or metro code: LHR (airport code)  CHI (city code) NYC (metro or city code)
+             codeType specifies which type of code that you are passing: STA = station/airport  CTY = city  MET  metro
+           </xs:documentation>
+
+        
+           <xs:documentation xml:lang="en">
+             customerCode: 
+             Mandatory value to pass that should have been provided to you in seperate documentation
+           </xs:documentation>
+
+           <xs:documentation xml:lang="en">
+             direction: 
+             IN or OUT of this code
+           </xs:documentation>
+        
+
+          <xs:documentation xml:lang="en">
+            productCode:
+            Mandatory value to pass that should have been provided to you in seperate documentation
+          </xs:documentation>
+                  
+
+      </xs:annotation>
+
+		<xs:complexType>
+			<xs:attribute name="code" type="restrictCode" use="required"/>
+			<xs:attribute name="customerCode" type="xs:string" use="required"/>
+      <xs:attribute name="productCode" type="xs:string" use="required"/>
+			<xs:attribute name="codeType" type="codeType" use="required"/>
+			<xs:attribute name="direction" type="directionType" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="codeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ALL"/>
+			<xs:enumeration value="REG"/>
+			<xs:enumeration value="CNT"/>
+			<xs:enumeration value="MET"/>
+			<xs:enumeration value="CTY"/>
+			<xs:enumeration value="STA"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="restrictCode">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z]{2,3}|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="directionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IN"/>
+			<xs:enumeration value="OUT"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
