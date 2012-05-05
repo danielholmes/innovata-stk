@@ -45,7 +45,7 @@ class FlightTest extends PHPUnit_Framework_TestCase
                         ->disableOriginalConstructor()
                         ->getMock();
         
-        return new FlightLeg(null, null, new Carrier($carrierCode, null, null), $flightNumber, null, 
+        return new FlightLeg(null, null, new Carrier($carrierCode, null, null), $flightNumber,  
                 null, $equipment, $departure, $arrival);
     }
 }
