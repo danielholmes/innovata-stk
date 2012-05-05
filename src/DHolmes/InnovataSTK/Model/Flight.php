@@ -2,6 +2,10 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class Flight
 {
     /** @var int */
@@ -19,6 +23,7 @@ class Flight
     private $legs;
     
     /**
+     *
      * @param int $dayIndicator
      * @param array $stops
      * @param int $elapsedTime
@@ -37,21 +42,30 @@ class Flight
         $this->legs = $legs;
     }
 
-    /** @return string */
+    /**
+     *
+     * @return string
+     */
     public function getFlightNumber()
     {
         $all = array_map(function(FlightLeg $leg) { return $leg->getFlightNumber(); }, $this->legs);
         return join('/', $all);
     }
     
-    /** @return array */
+    /**
+     *
+     * @return array
+     */
     public function getCarriers()
     {
         $all = array_map(function(FlightLeg $leg) { return $leg->getCarrier(); }, $this->legs);
         return array_unique($all);
     }
 
-    /** @return array */
+    /**
+     *
+     * @return array
+     */
     public function getLegs()
     {
         return $this->legs;
@@ -62,7 +76,10 @@ class Flight
         return $this->dayIndicator;
     }
 
-    /** @return array */
+    /**
+     *
+     * @return array
+     */
     public function getStops()
     {
         return $this->stops;

@@ -2,6 +2,7 @@
 
 namespace DHolmes\InnovataSTK\Cached;
 
+/** @author Creatio Pty Ltd */
 interface Cache
 {
     /**

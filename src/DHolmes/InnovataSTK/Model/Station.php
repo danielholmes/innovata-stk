@@ -19,7 +19,7 @@ class Station
      * @param City $city
      * @param Metro $metro
      */
-    public function __construct($code, $name, City $city, Metro $metro)
+    public function __construct($code, $name, City $city, Metro $metro = null)
     {
         $this->code = $code;
         $this->name = $name;

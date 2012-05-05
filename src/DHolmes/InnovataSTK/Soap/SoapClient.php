@@ -2,6 +2,10 @@
 
 namespace DHolmes\InnovataSTK\Soap;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 interface SoapClient
 {
     /**

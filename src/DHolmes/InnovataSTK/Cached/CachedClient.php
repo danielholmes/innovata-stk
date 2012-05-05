@@ -6,6 +6,7 @@ use DHolmes\InnovataSTK\InnovataSTKClient;
 use DHolmes\InnovataSTK\Cached\Cache;
 use DateTime;
 
+/** @author Creatio Pty Ltd */
 class CachedClient implements InnovataSTKClient
 {
     /** @var InnovataSTKClient */

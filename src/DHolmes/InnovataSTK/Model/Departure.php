@@ -2,6 +2,10 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class Departure
 {
     /** @var Station */

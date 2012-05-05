@@ -2,6 +2,10 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class Arrival
 {
     /** @var Station */
@@ -12,6 +16,7 @@ class Arrival
     private $terminal;
     
     /**
+     *
      * @param Station $station
      * @param int $time
      * @param string $terminal 
@@ -23,19 +28,28 @@ class Arrival
         $this->terminal = $terminal;
     }
 
-    /** @return Station */
+    /**
+     *
+     * @return Station
+     */
     public function getStation()
     {
         return $this->station;
     }
 
-    /** @return int */
+    /**
+     *
+     * @return int
+     */
     public function getTime()
     {
         return $this->time;
     }
 
-    /** @return string */
+    /**
+     *
+     * @return string
+     */
     public function getTerminal()
     {
         return $this->terminal;

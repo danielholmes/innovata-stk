@@ -19,7 +19,6 @@ use DHolmes\InnovataSTK\Model\Arrival;
 class ResponseParser
 {
     /**
-     *
      * @param SimpleXMLElement $xml
      * @return FlightResults 
      */
@@ -85,7 +84,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $flightXml
      * @param array $stationsByCode
      * @param array $equipmentsByCode 
@@ -97,9 +95,7 @@ class ResponseParser
     {
         $atts = $flightXml->attributes();
         
-        $equipmentCode = (string)$atts['equipment'];
-        
-        // TODO:
+        // TODO: stops
         $stops = array();
         $legs = array();
         if (isset($flightXml->legs->leg))
@@ -117,7 +113,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $legXml
      * @param array $stationsByCode
      * @param array $equipmentsByCode 
@@ -146,7 +141,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $xml
      * @param array $countriesByCode
      * @return City 
@@ -160,7 +154,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $xml
      * @return Region 
      */
@@ -171,7 +164,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $xml
      * @param array $regionsByCode
      * @return Country
@@ -185,7 +177,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $xml
      * @return Metro
      */
@@ -196,7 +187,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $xml
      * @return Equipment 
      */
@@ -208,7 +198,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $carrierXml
      * @return Carrier 
      */
@@ -219,7 +208,6 @@ class ResponseParser
     }
     
     /**
-     *
      * @param SimpleXMLElement $carrierXml
      * @param array $citiesByCode
      * @param array $metrosByCode
@@ -230,7 +218,12 @@ class ResponseParser
         $atts = $xml->attributes();
         $cityCode = (string)$atts['cityCode'];
         $metroCode = (string)$atts['metroCityCode'];
+        $metro = null;
+        if (!empty($metroCode))
+        {
+            $metro = $metrosByCode[$metroCode];
+        }
         return new Station((string)$atts['code'], (string)$atts['name'], $citiesByCode[$cityCode],
-                $metrosByCode[$metroCode]);
+                $metro);
     }
 }

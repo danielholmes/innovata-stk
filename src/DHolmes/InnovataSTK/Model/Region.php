@@ -2,6 +2,10 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class Region
 {
     /** @var string */
@@ -10,6 +14,7 @@ class Region
     private $name;
     
     /**
+     *
      * @param string $code
      * @param string $name 
      */
@@ -19,13 +24,19 @@ class Region
         $this->name = $name;
     }
 
-    /** @return string */
+    /**
+     *
+     * @return string
+     */
     public function getCode()
     {
         return $this->code;
     }
 
-    /** @return string */
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

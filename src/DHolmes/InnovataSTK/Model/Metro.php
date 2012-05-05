@@ -2,6 +2,10 @@
 
 namespace DHolmes\InnovataSTK\Model;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class Metro
 {
     /** @var string */
@@ -10,6 +14,7 @@ class Metro
     private $name;
     
     /**
+     *
      * @param string $code
      * @param string $name 
      */
@@ -19,13 +24,19 @@ class Metro
         $this->name = $name;
     }
 
-    /** @return string */
+    /**
+     *
+     * @return string
+     */
     public function getCode()
     {
         return $this->code;
     }
 
-    /** @return string */
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

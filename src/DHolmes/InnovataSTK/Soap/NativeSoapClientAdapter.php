@@ -7,36 +7,40 @@ use RuntimeException;
 use SoapClient as NativeSoapClient;
 use SoapHeader as NativeSoapHeader;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class NativeSoapClientAdapter implements SoapClient
 {
     /** @var string */
     private $wsdlUrl;
-    /** @var array */
-    private $clientOptions;
     /** @var NativeSoapClient */
     private $nativeClient;
     /** @var array */
     private $headers;
     
     /**
+     *
      * @param string $wsdlUrl
-     * @param array $clientOptions
      */
-    public function __construct($wsdlUrl, array $clientOptions = array())
+    public function __construct($wsdlUrl)
     {
         $this->wsdlUrl = $wsdlUrl;
-        $this->clientOptions = $clientOptions;
         $this->headers = array();
     }
     
-    /** @return NativeSoapClient */
+    /**
+     *
+     * @return NativeSoapClient 
+     */
     private function getNativeClient()
     {
         if ($this->nativeClient === null)
         {
             try
             {
-                $this->nativeClient = @new NativeSoapClient($this->wsdlUrl, $this->clientOptions);
+                $this->nativeClient = @new NativeSoapClient($this->wsdlUrl);
             }
             catch (Exception $e)
             {

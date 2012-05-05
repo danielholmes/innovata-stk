@@ -9,6 +9,10 @@ use DHolmes\InnovataSTK\InnovataSTKClient;
 use DHolmes\InnovataSTK\CallException;
 use DHolmes\InnovataSTK\Model\Results\FlightResults;
 
+/**
+ *
+ * @author Creatio Pty Ltd
+ */
 class SoapInnovataSTKClient implements InnovataSTKClient
 {
     /** @var SoapClient */
@@ -21,6 +25,7 @@ class SoapInnovataSTKClient implements InnovataSTKClient
     private $responseParser;
     
     /**
+     *
      * @param SoapClient $client
      * @param string $customerCode
      * @param string $password
@@ -76,6 +81,7 @@ class SoapInnovataSTKClient implements InnovataSTKClient
     }
     
     /**
+     *
      * @param mixed $result
      * @param string $xmlParamName 
      * @return SimpleXMLElement
@@ -105,6 +111,7 @@ class SoapInnovataSTKClient implements InnovataSTKClient
     }
     
     /**
+     *
      * @param string $name
      * @param string $inputRequest 
      * @return mixed
