@@ -4,6 +4,7 @@ namespace DHolmes\InnovataSTK\Tests\Soap\SoapInnovataSTKClient;
 
 use DateTime;
 use stdClass;
+use Phake;
 use PHPUnit_Framework_TestCase;
 use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\SoapClient;
@@ -21,8 +22,8 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
     
     protected function setUp()
     {
-        $this->soapClient = $this->getMock('DHolmes\InnovataSTK\Soap\SoapClient');
-        $this->responseParser = $this->getMock('DHolmes\InnovataSTK\Soap\ResponseParser');
+        $this->soapClient = Phake::mock('DHolmes\InnovataSTK\Soap\SoapClient');
+        $this->responseParser = Phake::mock('DHolmes\InnovataSTK\Soap\ResponseParser');
         $this->client = new SoapInnovataSTKClient($this->soapClient, 'customerCode', 'password', 
                             $this->responseParser);
     }
@@ -38,12 +39,11 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
             xsi:noNamespaceSchemaLocation="GetSchedules_Input.xsd" />';
         $result = new stdClass();
         $result->GetSchedulesResult = '<flightResults></flightResults>';
-        $this->soapClient->expects($this->once())
-                         ->method('makeCall')
-                         ->with('GetSchedules', array($expectedIn))
-                         ->will($this->returnValue($result));
+        Phake::when($this->soapClient)->makeCall(Phake::anyParameters())->thenReturn($result);
         
         $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
+        
+        Phake::verify($this->soapClient)->makeCall('GetSchedules', array($expectedIn));
     }
     
     /**
@@ -56,10 +56,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('DHolmes\InnovataSTK\CallException', 
             'Invalid Response: ' . var_export($response, true));
         
-        $this->soapClient->expects($this->any())
-                         ->method('makeCall')
-                         ->with($this->anything(), $this->anything())
-                         ->will($this->returnValue($response));
+        Phake::when($this->soapClient)->makeCall(Phake::anyParameters())->thenReturn($response);
         
         $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
     }
@@ -77,10 +74,7 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
                 <regions count="0" />
                 <error>Please enter the correct login credential.</error>
             </flightResults>';
-        $this->soapClient->expects($this->any())
-                         ->method('makeCall')
-                         ->with($this->anything(), $this->anything())
-                         ->will($this->returnValue($result));
+        Phake::when($this->soapClient)->makeCall(Phake::anyParameters())->thenReturn($result);
         
         $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
     }
@@ -89,15 +83,10 @@ class GetSchedulesTest extends PHPUnit_Framework_TestCase
     {
         $response = new stdClass();
         $response->GetSchedulesResult = '<flightResults></flightResults>';
-        $this->soapClient->expects($this->any())
-                         ->method('makeCall')
-                         ->with($this->anything(), $this->anything())
-                         ->will($this->returnValue($response));
+        Phake::when($this->soapClient)->makeCall(Phake::anyParameters())->thenReturn($response);
         $parsedResult = new FlightResults(array());
-        $this->responseParser->expects($this->once())
-                             ->method('parseFlightResults')
-                             ->with($this->anything())
-                             ->will($this->returnValue($parsedResult));
+        Phake::when($this->responseParser)->parseFlightResults(Phake::anyParameters())
+                                          ->thenReturn($parsedResult);
         
         $result = $this->client->getSchedules(new DateTime('2012-02-03'), 'BA', '0010');
         

@@ -12,15 +12,19 @@ class CachedClient implements InnovataSTKClient
     private $cached;
     /** @var Cache */
     private $cache;
+    /** @var int */
+    private $cacheLifetime;
     
     /** 
      * @param InnovataSTKClient $cached
      * @param Cache $cache
+     * @param int $cacheLifetime
      */
-    public function __construct(InnovataSTKClient $cached, Cache $cache)
+    public function __construct(InnovataSTKClient $cached, Cache $cache, $cacheLifetime = 0)
     {
         $this->cached = $cached;
         $this->cache = $cache;
+        $this->cacheLifetime = $cacheLifetime;
     }
     
     /**
@@ -40,7 +44,7 @@ class CachedClient implements InnovataSTKClient
         else
         {
             $result = $this->cached->getSchedules($date, $carrierCode, $flightNumber);
-            $this->cache->set($key, $result, 0);
+            $this->cache->set($key, $result, $this->cacheLifetime);
         }
         return $result;
     }

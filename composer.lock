@@ -1,11 +1,19 @@
 {
-    "hash": "884852a6427edee450df0430e29e7332",
+    "hash": "199dfbfb1dba349a321c63ce6f594d8c",
     "packages": [
         {
             "package": "doctrine/common",
+            "version": "2.2.x-dev",
+            "source-reference": "1e0aa60d109c630d19543d999f12e2852ef8f932"
+        },
+        {
+            "package": "phake/phake",
             "version": "dev-master",
-            "source-reference": "3b9b19e8c8cc498397be986d51e7e104105790c2"
+            "source-reference": "3d16f699ce6e91e315119a418a64442bde548863"
         }
     ],
-    "aliases": []
+    "packages-dev": null,
+    "aliases": [
+
+    ]
 }

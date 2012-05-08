@@ -3,6 +3,7 @@
 namespace DHolmes\InnovataSTK\Tests\Model;
 
 use PHPUnit_Framework_TestCase;
+use Phake;
 use DHolmes\InnovataSTK\Model\Flight;
 use DHolmes\InnovataSTK\Model\Carrier;
 use DHolmes\InnovataSTK\Model\FlightLeg;
@@ -35,15 +36,9 @@ class FlightTest extends PHPUnit_Framework_TestCase
     
     private function createLeg($carrierCode, $flightNumber)
     {
-        $equipment = $this->getMockBuilder('DHolmes\InnovataSTK\Model\Equipment')
-                          ->disableOriginalConstructor()
-                          ->getMock();
-        $departure = $this->getMockBuilder('DHolmes\InnovataSTK\Model\Departure')
-                          ->disableOriginalConstructor()
-                          ->getMock();
-        $arrival = $this->getMockBuilder('DHolmes\InnovataSTK\Model\Arrival')
-                        ->disableOriginalConstructor()
-                        ->getMock();
+        $equipment = Phake::mock('DHolmes\InnovataSTK\Model\Equipment');
+        $departure = Phake::mock('DHolmes\InnovataSTK\Model\Departure');
+        $arrival = Phake::mock('DHolmes\InnovataSTK\Model\Arrival');
         
         return new FlightLeg(null, null, new Carrier($carrierCode, null, null), $flightNumber,  
                 null, $equipment, $departure, $arrival);

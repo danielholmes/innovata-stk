@@ -6,6 +6,8 @@ use DHolmes\InnovataSTK\Soap\NativeSoapClientAdapter;
 use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\ServiceDetails;
 use DHolmes\InnovataSTK\Stub\StubInnovataSTKClient;
+use Cache;
+use DHolmes\InnovataSTK\Cached\CachedClient;
 
 class InnovataSTKClientFactory
 {
@@ -16,8 +18,7 @@ class InnovataSTKClientFactory
      */
     public static function createClient($customerCode, $password)
     {
-        $factory = new static();
-        return $factory->createNativePhpSoapClient($customerCode, $password);
+        return static::createNativePhpSoapClient($customerCode, $password);
     }
     
     /**
@@ -25,7 +26,7 @@ class InnovataSTKClientFactory
      * @param string $password
      * @return InnovataSTKClient 
      */
-    public function createNativePhpSoapClient($customerCode, $password)
+    private static function createNativePhpSoapClient($customerCode, $password)
     {
         $adapter = new NativeSoapClientAdapter(ServiceDetails::WSDL_URL);
         return new SoapInnovataSTKClient($adapter, $customerCode, $password);
@@ -40,5 +41,18 @@ class InnovataSTKClientFactory
         $client = new StubInnovataSTKClient();
         $client->setFixedResponsesByCallName($fixedResponsesByCallName);
         return $client;
+    }
+    
+    /**
+     * @param string $customerCode
+     * @param string $password
+     * @param Cache $cache
+     * @param int $lifetime
+     * @return CachedClient 
+     */
+    public static function createCached($customerCode, $password, Cache $cache, $lifetime)
+    {
+        $cachedClient = static::createClient($customerCode, $password);
+        return new CachedClient($cachedClient, $cache, $lifetime);
     }
 }
