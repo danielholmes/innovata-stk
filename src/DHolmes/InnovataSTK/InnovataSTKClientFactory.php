@@ -6,8 +6,10 @@ use DHolmes\InnovataSTK\Soap\NativeSoapClientAdapter;
 use DHolmes\InnovataSTK\Soap\SoapInnovataSTKClient;
 use DHolmes\InnovataSTK\Soap\ServiceDetails;
 use DHolmes\InnovataSTK\Stub\StubInnovataSTKClient;
-use Cache;
+use DHolmes\InnovataSTK\Cached\Cache;
+use Doctrine\Common\Cache\Cache as DoctrineCache;
 use DHolmes\InnovataSTK\Cached\CachedClient;
+use DHolmes\InnovataSTK\Cached\DoctrineCacheAdapter;
 
 class InnovataSTKClientFactory
 {
@@ -54,5 +56,19 @@ class InnovataSTKClientFactory
     {
         $cachedClient = static::createClient($customerCode, $password);
         return new CachedClient($cachedClient, $cache, $lifetime);
+    }
+    
+    /**
+     * @param string $customerCode
+     * @param string $password
+     * @param DoctrineCache $cache
+     * @param int $lifetime
+     * @return CachedClient 
+     */
+    public static function createDoctrineCached($customerCode, $password, DoctrineCache $cache, 
+        $lifetime)
+    {
+        $adapter = new DoctrineCacheAdapter($cache);
+        return static::createCached($customerCode, $password, $adapter, $lifetime);
     }
 }
