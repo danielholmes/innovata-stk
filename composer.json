@@ -2,9 +2,22 @@
     "name": "dholmes/innovata-stk",
     "version": "0.0.1",
     "require": {
-        "phake/phake": "dev-master",
         "doctrine/common": "2.2.*"
     },
+	"require-dev": {
+        "phake/phake": "dev-master",
+		"pear-phpunit/phpunit": "3.6.11"
+	},
+	"repositories": [
+        {
+            "type": "pear",
+            "url":  "pear.phpunit.de"
+        },
+        {
+            "type": "pear",
+            "url":  "pear.symfony-project.com"
+        }
+	],
     "autoload": {
         "psr-0": { "DHolmes\\InnovataSTK": "src/" }
     }
